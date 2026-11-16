@@ -36,6 +36,13 @@ This README is the page for now. A GitHub Pages site can be added later from the
 
 The empty Request Body frame was skipped. After Send, the browser asks "Modifying data, confirm to continue". Click OK. That dialog is expected. It is not the proof. The proof is the 201 and the Incident row.
 
+The explorer sets two headers for you. The captured request shows both as `application/json`:
+
+- `Accept: application/json`
+- `Content-Type: application/json`
+
+You must set both yourself later, in curl or in the Salesforce callout. Missing either one returns 400. The explorer will not save you then.
+
 ![Explorer namespace now, table incident](screenshots/01-explorer-setup.png)
 
 ![Explorer raw body before send](screenshots/01-explorer-body.png)
