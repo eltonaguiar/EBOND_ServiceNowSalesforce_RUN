@@ -124,7 +124,14 @@ The classic URL was:
 <details>
 <summary>How the Incident column was opened</summary>
 
-From Incident INC0010003: form menu → **Configure > Table**. The table is Global and extends Task. New column: String, label EBOND SF Case Id, name `u_ebond_sf_case_id`, length 18. Not `x_snc_…`. That prefix is ServiceNow's.
+Added. From Incident INC0010003: form menu → **Configure > Table**. The table is Global, extends Task, and now has 98 columns. Both custom fields are in the list:
+
+| Label | Name | Type | Length |
+|-------|------|------|--------|
+| EBOND SF Case Id | `u_ebond_sf_case_id` | String | 18 |
+| Sync Source | `u_sync_source` | String | 20 |
+
+Not `x_snc_`. That prefix is ServiceNow's.
 
 ![Incident dictionary column](screenshots/02-incident-column.png)
 
