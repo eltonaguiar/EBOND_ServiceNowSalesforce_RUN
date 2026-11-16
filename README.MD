@@ -31,18 +31,18 @@ This README is the page for now. A GitHub Pages site can be added later from the
 |------|-----------------|
 | `screenshots/01-explorer-setup.png` | Captured. Namespace `now`, API Name Table API, tableName Incident (`incident`). |
 | `screenshots/01-explorer-body.png` | Captured. Raw body filled, before Send. Request format `application/json`, authorization Send as me. |
-| `screenshots/01-explorer-201.png` | Still needed. The same request after Send, status 201, INC number visible. |
-| `screenshots/01-incident-list.png` | Still needed. Incident list with that same number. |
+| `screenshots/01-explorer-201.png` | Captured. Status 201 Created. Number `INC0010002`. sys_id `5dba2bdac3e8df54310abf0d050131a5`. Session token covered. |
+| `screenshots/01-incident-list.png` | Captured. List and form show `INC0010002`, short description "Lab 1 — from the explorer", state New. |
 
-The empty Request Body frame was skipped. It does not show a request or a result.
+The empty Request Body frame was skipped. After Send, the browser asks "Modifying data, confirm to continue". Click OK. That dialog is expected. It is not the proof. The proof is the 201 and the Incident row.
 
 ![Explorer namespace now, table incident](screenshots/01-explorer-setup.png)
 
 ![Explorer raw body before send](screenshots/01-explorer-body.png)
 
-![Explorer 201 still needed](screenshots/01-explorer-201.png)
+![201 Created, INC0010002, token covered](screenshots/01-explorer-201.png)
 
-![Incident list still needed](screenshots/01-incident-list.png)
+![Incident list INC0010002](screenshots/01-incident-list.png)
 
 ## Lab 2 — Salesforce to ServiceNow
 
