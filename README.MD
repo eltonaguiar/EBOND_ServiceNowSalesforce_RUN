@@ -58,6 +58,12 @@ You must set both yourself later, in curl or in the Salesforce callout. Missing 
 
 ![Incident list INC0010002](screenshots/01-incident-list.png)
 
+### Windows PowerShell
+
+The Linux `curl` paste fails in PowerShell. The one-line `Invoke-RestMethod` call worked. The password in the screenshot is covered. The `result` object is the 201 body. `sys_updated_on=2026-11-16 23:03:50`.
+
+![PowerShell Invoke-RestMethod success, password covered](screenshots/01-powershell-201.png)
+
 ### Second create — INC0010003
 
 A second POST made another Incident. The list does not show `sys_id`. Open the row in the classic form and read it from the URL.
