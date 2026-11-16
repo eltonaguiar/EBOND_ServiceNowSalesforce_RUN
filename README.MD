@@ -121,6 +121,15 @@ The classic URL was:
 
 ![Case and Incident placeholder](screenshots/02-case-and-incident.png)
 
+<details>
+<summary>How the Incident column was opened</summary>
+
+From Incident INC0010003: form menu → **Configure > Table**. The table is Global and extends Task. New column: String, label EBOND SF Case Id, name `u_ebond_sf_case_id`, length 18. Not `x_snc_…`. That prefix is ServiceNow's.
+
+![Incident dictionary column](screenshots/02-incident-column.png)
+
+</details>
+
 ## Lab 3 — ServiceNow to Salesforce
 
 **Why.** One direction is not a bond. This proves ServiceNow can call back and update the same Case, matched by `Snow_Sys_Id__c`, instead of creating a second Case. The 200 and the single Case update are the proof.
