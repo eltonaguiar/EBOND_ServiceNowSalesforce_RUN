@@ -43,6 +43,13 @@ The explorer sets two headers for you. The captured request shows both as `appli
 
 You must set both yourself later, in curl or in the Salesforce callout. Missing either one returns 400. The explorer will not save you then.
 
+**ELI5.** `Content-Type` is the label on the box you are sending. It says "this box is JSON." `Accept` is the label you want on the box they send back. It says "please answer in JSON." If you forget the label on the way in, ServiceNow does not know how to read the body and returns 400. If you forget the label on the way back, you may get HTML or an empty error instead of the Incident number.
+
+**Properly.** These are HTTP headers, not fields in the JSON body.
+
+- `Content-Type: application/json` tells the server how to parse the request body. The Table API expects a JSON object. Without this header it will not treat `{ "short_description": "..." }` as that object, and the create fails with 400.
+- `Accept: application/json` is the response format you will accept. The Table API can negotiate. Asking for JSON is what makes the 201 body a `result` object with `number` and `sys_id`, which is what the later labs read. The explorer sets both to `application/json` in Request format and Response format. A curl call and a Salesforce HTTP callout do not. Copy both headers into those calls.
+
 ![Explorer namespace now, table incident](screenshots/01-explorer-setup.png)
 
 ![Explorer raw body before send](screenshots/01-explorer-body.png)
