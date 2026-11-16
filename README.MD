@@ -14,16 +14,12 @@ This README is the page for now. A GitHub Pages site can be added later from the
 
 | File | What to capture |
 |------|-----------------|
-| `screenshots/00-pdi-url.png` | PDI is Ready. URL visible. Password covered. |
+| `screenshots/00-pdi-url.png` | Captured. Instance `dev296154`, Australia, Online, user `admin`. Password masked. |
+| `screenshots/00-salesforce-mydomain.png` | Captured. Developer Edition welcome on the Lightning host. API host is `orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com`. |
 
-https://developer.servicenow.com/dev.do
+![PDI instance dev296154, password masked](screenshots/00-pdi-url.png)
 
-
-| `screenshots/00-salesforce-mydomain.png` | Address bar or My Domain page showing `*.my.salesforce.com`, not `lightning.force.com`. |
-
-![PDI URL placeholder](screenshots/00-pdi-url.png)
-
-![Salesforce My Domain placeholder](screenshots/00-salesforce-mydomain.png)
+![Salesforce Developer Edition welcome](screenshots/00-salesforce-mydomain.png)
 
 ## Lab 1 — Table API
 
