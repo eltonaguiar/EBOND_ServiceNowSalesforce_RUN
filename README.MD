@@ -73,6 +73,15 @@ The multi-line `curl` command works in bash. It does not work in PowerShell. Thi
 
 </details>
 
+<details>
+<summary>Command Prompt — same proof, collapsed</summary>
+
+`curl.exe -u admin` prompts for the password, so Command Prompt never rewrites `%` or `^`. This run returned `INC0010008`, sys_id `5a60bf9ac32cdf54310abf0d05013147`, created `2026-11-16 23:11:32`. No password is in the frame.
+
+![Command Prompt curl 201](screenshots/01-cmd-curl-201.png)
+
+</details>
+
 ### Second create — INC0010003
 
 A second POST made another Incident. The list does not show `sys_id`. Open the row in the classic form and read it from the URL.
