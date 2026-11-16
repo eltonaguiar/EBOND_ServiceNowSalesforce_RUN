@@ -58,6 +58,27 @@ You must set both yourself later, in curl or in the Salesforce callout. Missing 
 
 ![Incident list INC0010002](screenshots/01-incident-list.png)
 
+### Second create — INC0010003
+
+A second POST made another Incident. The list does not show `sys_id`. Open the row in the classic form and read it from the URL.
+
+| | |
+|--|--|
+| Number | `INC0010003` |
+| sys_id | `665ce35ac3e8df54310abf0d050131fd` |
+| Opened | 2026-11-16 14:53:48 |
+| Filter | Number = INC0010003 |
+
+The classic URL was:
+
+`https://dev296154.service-now.com/now/nav/ui/classic/params/target/incident.do%3Fsys_id%3D665ce35ac3e8df54310abf0d050131fd%26sysparm_record_list%3Dnumber%253DINC0010003`
+
+`sys_id%3D` is `sys_id=`. The 32 characters after it are the id. That is the value Lab 2 stores in `Snow_Sys_Id__c`. Do not use the display number `INC0010003` as the sys_id.
+
+![INC0010003 form](screenshots/01-incident-form-inc0010003.png)
+
+![INC0010003 filtered list](screenshots/01-incident-list-inc0010003.png)
+
 ## Lab 2 — Salesforce to ServiceNow
 
 **Why.** This is the first real direction of the integration: a Case save creates one Incident and stores the Case Id on it. The screenshots prove the credential is named, the correlation field is filled, and a second save would update instead of duplicating.
