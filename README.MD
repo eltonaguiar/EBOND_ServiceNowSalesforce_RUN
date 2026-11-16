@@ -32,7 +32,7 @@ This README is the page for now. A GitHub Pages site can be added later from the
 | `screenshots/01-explorer-setup.png` | Captured. Namespace `now`, API Name Table API, tableName Incident (`incident`). |
 | `screenshots/01-explorer-body.png` | Captured. Raw body filled, before Send. Request format `application/json`, authorization Send as me. |
 | `screenshots/01-explorer-201.png` | Captured. Status 201 Created. Number `INC0010002`. sys_id `5dba2bdac3e8df54310abf0d050131a5`. Session token covered. |
-| `screenshots/01-incident-list.png` | Captured. List and form show `INC0010002`, short description "Lab 1 — from the explorer", state New. |
+| `screenshots/01-incident-list.png` | Captured. Ticket list after the 201. `INC0010002`, opened 2026-11-16 14:46:37, short description "Lab 1 — from the explorer", state New, updated by admin. |
 
 The empty Request Body frame was skipped. After Send, the browser asks "Modifying data, confirm to continue". Click OK. That dialog is expected. It is not the proof. The proof is the 201 and the Incident row.
 
