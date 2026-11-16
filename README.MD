@@ -64,6 +64,15 @@ The Linux `curl` paste fails in PowerShell. The one-line `Invoke-RestMethod` cal
 
 ![PowerShell Invoke-RestMethod success, password covered](screenshots/01-powershell-201.png)
 
+<details>
+<summary>Linux curl — same proof, collapsed</summary>
+
+The multi-line `curl` command works in bash. It does not work in PowerShell. This run returned `INC0010007`, sys_id `89e6f3dec32cdf54310abf0d05013123`, `sys_updated_on` `2026-11-16 23:09:16`. The password in the capture is covered.
+
+![Linux curl 201, password covered](screenshots/01-linux-curl-201.png)
+
+</details>
+
 ### Second create — INC0010003
 
 A second POST made another Incident. The list does not show `sys_id`. Open the row in the classic form and read it from the URL.
