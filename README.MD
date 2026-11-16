@@ -29,12 +29,20 @@ This README is the page for now. A GitHub Pages site can be added later from the
 
 | File | What to capture |
 |------|-----------------|
-| `screenshots/01-explorer-201.png` | REST API Explorer, POST incident, status 201, INC number visible. |
-| `screenshots/01-incident-list.png` | Incident list with that same number. |
+| `screenshots/01-explorer-setup.png` | Captured. Namespace `now`, API Name Table API, tableName Incident (`incident`). |
+| `screenshots/01-explorer-body.png` | Captured. Raw body filled, before Send. Request format `application/json`, authorization Send as me. |
+| `screenshots/01-explorer-201.png` | Still needed. The same request after Send, status 201, INC number visible. |
+| `screenshots/01-incident-list.png` | Still needed. Incident list with that same number. |
 
-![Explorer 201 placeholder](screenshots/01-explorer-201.png)
+The empty Request Body frame was skipped. It does not show a request or a result.
 
-![Incident list placeholder](screenshots/01-incident-list.png)
+![Explorer namespace now, table incident](screenshots/01-explorer-setup.png)
+
+![Explorer raw body before send](screenshots/01-explorer-body.png)
+
+![Explorer 201 still needed](screenshots/01-explorer-201.png)
+
+![Incident list still needed](screenshots/01-incident-list.png)
 
 ## Lab 2 — Salesforce to ServiceNow
 
