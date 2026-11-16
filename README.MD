@@ -60,9 +60,11 @@ You must set both yourself later, in curl or in the Salesforce callout. Missing 
 
 ### Windows PowerShell
 
-The Linux `curl` paste fails in PowerShell. The one-line `Invoke-RestMethod` call worked. The password in the screenshot is covered. The `result` object is the 201 body. `sys_updated_on=2026-11-16 23:03:50`.
+The Linux `curl` paste fails in PowerShell. `Invoke-RestMethod` with `Read-Host` worked on Windows PowerShell 5.1. `sys_updated_on=2026-11-16 23:12:17`.
 
-![PowerShell Invoke-RestMethod success, password covered](screenshots/01-powershell-201.png)
+The password is not in the command text, but it does stay on the screen after you type it. Cover it before a screenshot, then run `Clear-Host`. The bar in this shot is that cover.
+
+![PowerShell 5.1 Read-Host success, password covered](screenshots/01-powershell-51-201.png)
 
 <details>
 <summary>Linux curl — same proof, collapsed</summary>
