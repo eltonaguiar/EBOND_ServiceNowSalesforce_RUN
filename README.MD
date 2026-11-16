@@ -15,6 +15,10 @@ This README is the page for now. A GitHub Pages site can be added later from the
 | File | What to capture |
 |------|-----------------|
 | `screenshots/00-pdi-url.png` | PDI is Ready. URL visible. Password covered. |
+
+https://developer.servicenow.com/dev.do
+
+
 | `screenshots/00-salesforce-mydomain.png` | Address bar or My Domain page showing `*.my.salesforce.com`, not `lightning.force.com`. |
 
 ![PDI URL placeholder](screenshots/00-pdi-url.png)
