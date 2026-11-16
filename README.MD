@@ -12,6 +12,8 @@ This README is the page for now. A GitHub Pages site can be added later from the
 
 ## Lab 0 — Free instances
 
+**Why.** Nothing else in the lab can be proven until both free accounts exist and you know the host each API will call. A wrong Salesforce host (Lightning instead of My Domain) fails every later call and looks like an auth bug.
+
 | File | What to capture |
 |------|-----------------|
 | `screenshots/00-pdi-url.png` | Captured. Instance `dev296154`, Australia, Online, user `admin`. Password masked. |
@@ -23,6 +25,8 @@ This README is the page for now. A GitHub Pages site can be added later from the
 
 ## Lab 1 — Table API
 
+**Why.** This is the smallest proof that ServiceNow accepts an outside create. A 201 and a matching Incident mean the instance, the user, and the table are good before Salesforce is involved. If this fails, do not debug Flow or Apex yet.
+
 | File | What to capture |
 |------|-----------------|
 | `screenshots/01-explorer-201.png` | REST API Explorer, POST incident, status 201, INC number visible. |
@@ -33,6 +37,8 @@ This README is the page for now. A GitHub Pages site can be added later from the
 ![Incident list placeholder](screenshots/01-incident-list.png)
 
 ## Lab 2 — Salesforce to ServiceNow
+
+**Why.** This is the first real direction of the integration: a Case save creates one Incident and stores the Case Id on it. The screenshots prove the credential is named, the correlation field is filled, and a second save would update instead of duplicating.
 
 | File | What to capture |
 |------|-----------------|
@@ -48,6 +54,8 @@ This README is the page for now. A GitHub Pages site can be added later from the
 
 ## Lab 3 — ServiceNow to Salesforce
 
+**Why.** One direction is not a bond. This proves ServiceNow can call back and update the same Case, matched by `Snow_Sys_Id__c`, instead of creating a second Case. The 200 and the single Case update are the proof.
+
 | File | What to capture |
 |------|-----------------|
 | `screenshots/03-external-client-app.png` | External Client App. Consumer secret covered. |
@@ -62,6 +70,8 @@ This README is the page for now. A GitHub Pages site can be added later from the
 
 ## Lab 4 — Ownership and loops
 
+**Why.** Bidirectional sync fails in production when both sides copy every field. This lab is where you show which system owns the title and which owns state, and that one save does not bounce forever.
+
 | File | What to capture |
 |------|-----------------|
 | `screenshots/04-ownership.png` | A note or form that shows Salesforce owns the title and ServiceNow owns state. |
@@ -69,6 +79,8 @@ This README is the page for now. A GitHub Pages site can be added later from the
 ![Ownership placeholder](screenshots/04-ownership.png)
 
 ## Lab 5 — Troubleshooting
+
+**Why.** A clean run does not need a shot. If something failed, the before-and-after is the evidence that the failure was diagnosed (asleep instance, wrong host, missing principal access, callout before the save committed) and not papered over.
 
 | File | What to capture |
 |------|-----------------|
