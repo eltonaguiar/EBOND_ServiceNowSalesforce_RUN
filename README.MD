@@ -80,9 +80,11 @@ This README is the page for now. A GitHub Pages site can be added later from the
 
 Not required. Take these if the screen is already open.
 
+![My Domain API host](screenshots/00-my-domain.png)
+
 | Suggested file | Why |
 |----------------|-----|
-| `screenshots/00-my-domain.png` | The API host. The welcome shot is Lightning, which is the wrong host for API calls. |
+| `screenshots/00-my-domain.png` | Captured. Current My Domain URL `orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com`. |
 | `screenshots/02-principal-access.png` | Permission set granting External Credential Principal Access. This is the usual Lab 2 miss. |
 | `screenshots/02-incident-fields.png` | Incident columns `u_ebond_sf_case_id` and `u_sync_source`. |
 | `screenshots/04-syslog-one-write.png` | `syslog.list` filtered to EBOND, one write, not a loop. |
