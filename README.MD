@@ -124,6 +124,7 @@ The classic URL was:
 | `screenshots/02-principal-saved.png` | Captured. Principal saved. Sequence 1, `PDI_admin`, Named Principal, Authentication Status Configured, username `admin`. External Credential name is `EBONDServiceNow`. Related Named Credentials is still empty. |
 | `screenshots/02-user-detail.png` | Captured. Top-right picture, then your name, then User Detail. That is the user to assign. |
 | `screenshots/02-permission-sets.png` | Captured. Setup, Users, Permission Sets. License stays --None--. |
+| `screenshots/02-permset-principal-access.png` | Captured. Permission set `PDI admin`. Next click is External Credential Principal Access, then check `PDI_admin`. Manage Assignments is on this page. |
 | `screenshots/02-named-credential.png` | Named Credential `EBOND_ServiceNow`. No secret in the frame. |
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
@@ -154,6 +155,8 @@ The classic URL was:
 ![Profile, name, User Detail](screenshots/02-user-detail.png)
 
 ![Permission Sets. Leave the license blank.](screenshots/02-permission-sets.png)
+
+![External Credential Principal Access is in the permission set settings list](screenshots/02-permset-principal-access.png)
 
 ![Named Credential placeholder](screenshots/02-named-credential.png)
 
