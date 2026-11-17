@@ -4,7 +4,7 @@ Code: https://github.com/eltonaguiar/EBOND_ServiceNowSalesforce
 Do not commit passwords, tokens, consumer secrets, or session cookies. Cover them before you save the image.
 - `screenshots/from-chat/` — authentic captures from the chat, numbered in the order they were sent.
 - `screenshots/redrawn-stand-ins/` — caption cards a previous pass drew to stand in for missing screenshots. Not real screens. Parked out of the narrative.
-Each screenshot lists the steps that produced it and what it showcases. Mapping is by chat order.
+Each screenshot lists the steps that produced it and what it showcases. Mapping is by chat order. testing123
 
 ## Lab 0 — Free instances
 **Why.** Nothing else can be proven until both free accounts exist and you know the host each API will call. A wrong Salesforce host (Lightning instead of My Domain) fails every later call.
