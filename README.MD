@@ -92,7 +92,7 @@ Steps: Configure → Table. Showcases: the table.
 Steps: Configure → Table. Showcases: the table.
 ![Custom columns added](screenshots/from-chat/023-1794871924553-prt_1e6b417450017mfeIB2UePE6PG.png)
 
-Steps: Columns related list → New. Showcases: u_ebond_sf_case_id and u_sync_source.
+Steps: Columns related list → New. Showcases: EBOND SF Case Id [u_ebond_sf_case_id] and Sync Source [u_sync_source] , custom fields added on the Incident Table
 ### Salesforce fields
 ![Gear icon](screenshots/from-chat/024-1794872325333-prt_1e6ba34cb001lKDHh4zTju7OUt.png)
 
