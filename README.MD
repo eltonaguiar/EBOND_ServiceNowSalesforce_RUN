@@ -1,6 +1,15 @@
 # EBOND lab run — screenshot placeholders
 
-This repo holds the screenshots from one pass through the lab. The boxes below are placeholders. Replace each file with the real capture, same filename, after you finish that step.
+This repo holds the screenshots from one pass through the lab.
+
+The files that look like white caption cards were redrawn stand-ins. They are not the user's captures. Do not treat them as proof. The real captures from this chat are in `screenshots/from-chat/`, numbered in the order they were sent. Shots not yet matched to a step are listed in the appendix.
+
+These files are the user's pixels, not redraws:
+
+- `screenshots/02-explorer-confirm.png` — the browser dialog, Modifying data, confirm to continue.
+- `screenshots/02-table-api-methods.png` — REST API Explorer method list. POST creates a record.
+- `screenshots/02-external-credential-detail.png` — External Credential `EBONDServiceNow`, created first. Principal `PDI_admin`.
+- `screenshots/02-named-credential-detail.png` — Named Credential `EBOND_ServiceNow`, created after. It points at External Credential `EBOND ServiceNow`.
 
 Lab: https://eltonaguiar.github.io/EBOND_ServiceNowSalesforce/
 
@@ -283,6 +292,8 @@ POST creates. GET, PUT, PATCH, and DELETE are not wired. Deleting or editing one
 
 Warning: REST API Explorer Send on POST, PUT, PATCH, or DELETE changes the instance. The dialog says Modifying data, confirm to continue. An empty body still creates an Incident. This run made `INC0010011` and `INC0010012` that way. Caller and Short description are mandatory on the form, not on the API. Those two are explorer noise, not the Case proof.
 
+Cheat sheet, best effort from the lab notes and the saved screens. An External Credential is the login. A Named Credential is the address that uses that login. The permission set is the badge that lets the Salesforce user use the login. External Credential was created first. Named Credential was created after. The link does not mean the Named Credential came first. After the principal was saved, Related Named Credentials was still empty. This run linked the permission set to the External Credential principal `EBONDServiceNow - PDI_admin`, on the set labeled `PDI admin`. It did not link the permission set to the Named Credential. The Named Credential `EBOND_ServiceNow` points at External Credential `EBOND ServiceNow` and is what the Flow HTTP Callout picks. Saved External Credential name is `EBONDServiceNow`, not `EBOND_ServiceNow`. Protocol Basic Authentication. Principal sequence 1, `PDI_admin`, Named Principal, username `admin`. Named Credential URL `https://dev296154.service-now.com/`. Generate Authorization Header on. No custom headers.
+
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
 ![Save the flow dialog](screenshots/02-save-flow.png)
@@ -365,6 +376,27 @@ Not required. Take these if the screen is already open.
 | `screenshots/02-principal-access.png` | Permission set granting External Credential Principal Access. This is the usual Lab 2 miss. |
 | `screenshots/02-incident-fields.png` | Incident columns `u_ebond_sf_case_id` and `u_sync_source`. |
 | `screenshots/04-syslog-one-write.png` | `syslog.list` filtered to EBOND, one write, not a loop. |
+
+![Confirm dialog, real capture](screenshots/02-explorer-confirm.png)
+
+![REST API Explorer methods, real capture](screenshots/02-table-api-methods.png)
+
+![External Credential detail, created first](screenshots/02-external-credential-detail.png)
+
+![Named Credential detail, created after](screenshots/02-named-credential-detail.png)
+
+## Appendix — Screenshots taken, to be identified and organized later
+
+161 files in `screenshots/from-chat/`. They are the chat captures, in send order. A later pass should attach each one to the lab step it shows. Until then they stay here so the redrawn caption cards are not mistaken for them.
+
+Known matches so far:
+
+| File in from-chat | What it is |
+|-------------------|------------|
+| `152-...YG4crEdkagwlUb.png` | REST API Explorer method list |
+| `154-...ZavVmpV3LipfDL.png` | Confirm dialog, Modifying data, confirm to continue |
+| `155-...KoI77w5rqiI732.png` | External Credential `EBONDServiceNow` |
+| `157-...fHWaWbTMphv5BG.png` | Named Credential `EBOND_ServiceNow` |
 
 ## Replace a placeholder
 
