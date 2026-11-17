@@ -145,7 +145,7 @@ The classic URL was:
 | `screenshots/02-http-callout-response-json.png` | Captured. Sample JSON Response, empty. Do not paste the request JSON here. |
 | `screenshots/02-flow-action-created.png` | Captured. Action created on Run Asynchronously. Next: Label `Create Incident`, API Name `Create_Incident`, then map the six body fields. |
 | `screenshots/02-flow-action-body.png` | Captured. Label is empty and red. Body is one key. Use New Resource. Transaction Control stays Let the flow decide. |
-| `screenshots/02-assignment-plus.png` | Captured. Body value is IncidentBody. Assignment is not in the panel. Use the + between Run Asynchronously and Create Incident. |
+| `screenshots/02-assignment-plus.png` | Captured. Body value is IncidentBody. Assignment is not inside the action panel. Close the panel. On the canvas, click the + between Run Asynchronously and Create Incident, then choose Assignment. |
 | `screenshots/02-output-resources.png` | Captured. Do not check Manually assign variables. That stores the reply, not the request. |
 | `screenshots/02-new-resource-menu.png` | Captured. Body Value menu. Click + New Resource. Do not pick a global variable. That resource is the request body. |
 | `screenshots/02-new-resource-dialog.png` | Captured. API Name `IncidentBody`. Apex-Defined. Leave collection and availability unchecked. Done. The six fields are not on this dialog. |
