@@ -129,7 +129,7 @@ The classic URL was:
 | `screenshots/02-principal-access-saved.png` | Captured. Saved. Permission set `PDI admin` lists `EBONDServiceNow - PDI_admin`. Next is Manage Assignments. |
 | `screenshots/02-permset-assigned.png` | Captured. Add Assignment, user Elton Aguiar, profile System Administrator. One assignment. Expires On blank. |
 | `screenshots/02-named-credential-form.png` | Captured. New Named Credential. External Credential EBOND ServiceNow. Generate Authorization Header checked. Name must keep the underscore: `EBOND_ServiceNow`. |
-| `screenshots/02-named-credential.png` | Named Credential `EBOND_ServiceNow`. No secret in the frame. |
+| `screenshots/02-named-credential.png` | Captured. Saved. Name `EBOND_ServiceNow`. URL `https://dev296154.service-now.com/`. External Credential `EBOND ServiceNow`. Generate Authorization Header on. |
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
 | `screenshots/02-case-and-incident.png` | The Case, and the Incident whose `u_ebond_sf_case_id` matches the Case Id. |
