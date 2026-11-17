@@ -105,17 +105,20 @@ Steps: click Setup, not Setup for current app. Showcases: the Setup menu.
 Steps: Gear → Setup. Showcases: Setup.
 ![Field details step](screenshots/from-chat/027-1794875101317-prt_1e6e4907b001H6hAvh2p3urki8.png)
 
-Steps: Object Manager → Case → Fields & Relationships → New → Text, Step 2 of 4. Showcases: the details screen. Snow_Sys_Id__c failed because you typed __c.
+Steps: Object Manager → Case → Fields & Relationships → New → Text, Step 2 of 4. Showcases: the details screen. Snow_Sys_Id__c failed if you typed __c. Lab updated to clearly distinguish.
 ![Case layouts](screenshots/from-chat/028-1794875148052-prt_1e6e54710001B5Ja5K5X7V3Yrg.png)
 
-Steps: Step 4 of 4, add to page layouts. Showcases: all Case layouts checked.
+Steps: Step 4 of 4, add to page layouts. Showcases: all Case layouts checked. (see above)
 ### Cases and the new fields
 ![Case object fields](screenshots/from-chat/029-1794881670689-prt_1e748ce140010vgxim2wr0xykL.png)
 
 Steps: Object Manager → Case → Fields & Relationships. Showcases: the three custom fields.
+
+# ServiceNow Number & ServiceNow Sys ID
 ![Case object fields (2)](screenshots/from-chat/030-1794881670692-prt_1e748ce1500150aGD7t6aqcf30.png)
 
 Steps: Fields & Relationships. Showcases: the fields.
+# Sync Source
 ![Case object fields (3)](screenshots/from-chat/031-1794881670694-prt_1e748ce15002V1rfBSQGBzB529.png)
 
 Steps: Fields & Relationships. Showcases: the fields.
@@ -130,13 +133,13 @@ Steps: App launcher → Cases. Showcases: the Cases tab.
 Steps: App launcher → Cases. Showcases: Cases.
 ![Cases tab (3)](screenshots/from-chat/035-1794889325424-prt_1e7bd9b62002ML72UEqeKDknaY.png)
 
-Steps: App launcher → Cases. Showcases: Cases.
+Showcases: in Salesforce Case, we have the fields we added such as ServiceNow Sys Id, ServiceNow Number, Sync Source. (we added to all "page layouts" for this example)
 ![New fields highlighted](screenshots/from-chat/036-1794889362052-prt_1e7be2a7f001pfygP3xge4Vkyu.png)
 
 Steps: open a Case. Showcases: the three new fields highlighted.
 ![Setup screen](screenshots/from-chat/037-1794889427195-prt_1e7bf28f7001ee7NqMH9LGWkdy.png)
 
-Steps: Gear → Setup. Showcases: Setup.
+Steps: Gear → Setup. Showcases: Setup. Note the External ID, and Unique(case insensitive options) were selected for ServiceNow Sys ID.
 ### External Credential (created first)
 ![Named Credentials empty](screenshots/from-chat/038-1794889460242-prt_1e7bfaa0f001LnEWTlAxHCKcjD.png)
 
