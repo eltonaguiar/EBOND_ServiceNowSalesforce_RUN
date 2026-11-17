@@ -35,7 +35,7 @@ Steps: same screen as above. Showcases: another request-body view.
 Steps: after Send, the browser asks Modifying data, confirm to continue. Showcases: the confirm dialog before the write.
 ![After OK](screenshots/from-chat/007-1794869301760-prt_1e68c11e7002TOLN4N2qm8IWUE.png)
 
-Steps: click OK on the confirm dialog. Showcases: the run after confirming.
+Steps: click OK on the confirm dialog. Showcases: the run after confirming. Note the Status 201 code.
 ![Response body](screenshots/from-chat/008-1794869301762-prt_1e68c11e7003B1TVqPvdpeodmf.png)
 
 Steps: click OK. Showcases: the response body.
@@ -47,7 +47,7 @@ Steps: click OK. Showcases: response body with result.number and result.sys_id.
 Steps: Send. Showcases: the Incident Form for the Incident that was created by the REST API Explorer--> after the user clicked "SEND" button and "OK" on the prompt "modiying data, confirm to continue"
 ![201 Created (2)](screenshots/from-chat/011-1794869301765-prt_1e68c11e8001fp2tBonIVC0hVk.png)
 
-Steps: Send. Showcases: status 201.
+Steps: Send. Showcases: Incident List with the ticket created from REST Explorer.
 ![Response result](screenshots/from-chat/012-1794869301768-prt_1e68c11e8002q88L84hitY0J07.png)
 
 Steps: after OK. Showcases: result.number and result.sys_id.
@@ -57,7 +57,8 @@ Steps: open the Incident list after the 201. Showcases: the new ticket row.
 #### Second create
 ![INC0010003 form](screenshots/from-chat/014-1794869754173-prt_1e692f938001hyY9Jiz1a3p08B.png)
 
-Steps: POST again, open the row in the classic form. Showcases: the form. sys_id comes from the URL.
+Steps: POST again, open the row in the classic form. Showcases: the form. sys_id comes from the URL. 
+The screenshot was truncated, but we verified by navigating into the incident, that it matched the created Incident per the "number" field and sys_id field of the Repsonse Body.
 ![INC0010003 filtered list](screenshots/from-chat/015-1794869754175-prt_1e692f938002HG4IFM7frpMMN7.png)
 
 Steps: filter the list to that number. Showcases: the filtered list.
