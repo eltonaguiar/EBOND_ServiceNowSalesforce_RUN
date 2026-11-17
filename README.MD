@@ -62,6 +62,8 @@ The screenshot was truncated, but we verified by navigating into the incident, t
 ![INC0010003 filtered list](screenshots/from-chat/015-1794869754175-prt_1e692f938002HG4IFM7frpMMN7.png)
 
 Steps: filter the list to that number. Showcases: the filtered list.
+
+##  Commands to Create Incident via CURL/ Command prompt / Powershell
 #### curl / PowerShell / Command Prompt
 ![Windows curl success](screenshots/from-chat/016-1794870299716-prt_1e69b4c41001maTUydAR6OOOAS.png)
 
