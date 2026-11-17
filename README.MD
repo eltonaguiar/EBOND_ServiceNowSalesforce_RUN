@@ -133,6 +133,7 @@ The classic URL was:
 | `screenshots/02-flows-home.png` | Captured. Quick Find `flows`. Next click is New Flow, top right. Not an existing row. |
 | `screenshots/02-flow-async.png` | Captured. Case, record is created, Actions and Related Records, Add Asynchronous Path on. HTTP call goes on Run Asynchronously. Action is Create HTTP Callout. |
 | `screenshots/02-create-http-callout.png` | Captured. Search Actions. The link at the bottom, Create HTTP Callout. Not a category row. |
+| `screenshots/02-http-callout-name.png` | Captured. New HTTP Callout. Name `EBONDCreateIncident`, no underscore. Named Credential `EBOND_ServiceNow`. |
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
 | `screenshots/02-case-and-incident.png` | The Case, and the Incident whose `u_ebond_sf_case_id` matches the Case Id. |
@@ -180,6 +181,8 @@ The classic URL was:
 ![Async path on, Create HTTP Callout](screenshots/02-flow-async.png)
 
 ![Create HTTP Callout link at the bottom of Search Actions](screenshots/02-create-http-callout.png)
+
+![New HTTP Callout name has no underscore](screenshots/02-http-callout-name.png)
 
 ![Case 00001026 created, ServiceNow fields empty](screenshots/02-case-created.png)
 
