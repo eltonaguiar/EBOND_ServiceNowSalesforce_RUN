@@ -263,6 +263,8 @@ ELI5: `2XX` is not a ServiceNow field. It is Salesforce's name for the success r
 
 First row: ServiceNow Sys Id (`Snow_Sys_Id__c`) = `{!EBONDCreateIncident_Create_Incident.2XX.result.sys_id}`. Left side is the Case field. Right side is the Create Incident action, then the success box, then `result`, then `sys_id`. Do not type it. Typing `cre` turns the box red. Pick Outputs from EBONDCreateIncident: Create Incident, then 2XX, then result, then sys_id. If Salesforce shows `sys_x5f_id`, that is still `sys_id`. `_x5f_` is how it writes an underscore. Do not type `sysx5fid`.
 
+The left side of each row is a Case field you are filling in. The right side is where the value comes from. Triggering Case is the Salesforce Case that started the flow. It has Subject, Description, and Id. It does not have a ServiceNow id yet. That id does not exist until Create Incident calls ServiceNow and ServiceNow answers. Outputs from EBONDCreateIncident: Create Incident is that answer. Pick it for ServiceNow Sys Id and ServiceNow Number. Do not pick Triggering Case for those two. Sync Source is not in the answer. Type `salesforce` for that row.
+
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
 ![Save the flow dialog](screenshots/02-save-flow.png)
