@@ -44,7 +44,7 @@ Steps: click OK. Showcases: the response body.
 Steps: click OK. Showcases: response body with result.number and result.sys_id.
 ![201 Created](screenshots/from-chat/010-1794869301764-prt_1e68c11e7005Bn1ZrQpucbtdQk.png)
 
-Steps: Send. Showcases: status 201.
+Steps: Send. Showcases: the Incident Form for the Incident that was created by the REST API Explorer--> after the user clicked "SEND" button and "OK" on the prompt "modiying data, confirm to continue"
 ![201 Created (2)](screenshots/from-chat/011-1794869301765-prt_1e68c11e8001fp2tBonIVC0hVk.png)
 
 Steps: Send. Showcases: status 201.
