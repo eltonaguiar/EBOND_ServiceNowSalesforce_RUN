@@ -265,6 +265,8 @@ First row: ServiceNow Sys Id (`Snow_Sys_Id__c`) = `{!EBONDCreateIncident_Create_
 
 The left side of each row is a Case field you are filling in. The right side is where the value comes from. Triggering Case is the Salesforce Case that started the flow. It has Subject, Description, and Id. It does not have a ServiceNow id yet. That id does not exist until Create Incident calls ServiceNow and ServiceNow answers. Outputs from EBONDCreateIncident: Create Incident is that answer. Pick it for ServiceNow Sys Id and ServiceNow Number. Do not pick Triggering Case for those two. Sync Source is not in the answer. Type `salesforce` for that row.
 
+Second row: ServiceNow Number (`Snow_Number__c`) = `{!EBONDCreateIncident_Create_Incident.2XX.result.z0number}`. The pill you pick is result then number. `z0number` is still `number`. `number` is a reserved word, so the generated class renames it. Same field. Do not type `z0number`. That value is the Incident number, such as `INC0010002`.
+
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
 ![Save the flow dialog](screenshots/02-save-flow.png)
