@@ -307,7 +307,7 @@ Steps: Save. Showcases: save.
 ![Action created](screenshots/from-chat/090-1794892077853-prt_1e7e79b11001HQuAUORYbrWI7L.png)
 
 Steps: Save. Showcases: the action on Run Asynchronously. Note the URL 
-http://<devXXXX.service-now.com/api/now/table/incident (the creation URL which we saw earlier under REST Explorer with POST )
+http://<devXXXX.service-now.com/api/now/table/incident (the creation URL which we saw earlier under REST Explorer with POST ), note also HTTP Callout Method: POST , aligned to that.
 ![Action created (2)](screenshots/from-chat/091-1794892077855-prt_1e7e79b1100206NfyBWm4Cyh1x.png)
 
 Steps: as above. Showcases: action created.
@@ -509,16 +509,36 @@ Steps: as above. Showcases: the detail.
 Steps: Setup → External Credentials → EBONDServiceNow. Showcases: created first.
 ![Confirm dialog](screenshots/from-chat/157-1794895306932-prt_1e818e0b1001fHWaWbTMphv5BG.png)
 
-Steps: Explorer Send on a write method. Showcases: Modifying data, confirm to continue.
-![Confirm dialog (2)](screenshots/from-chat/158-1794895317283-prt_1e8190920001EBtcTlqut3ThaZ.png)
 
-Steps: as above. Showcases: the dialog.
-![File listing](screenshots/from-chat/159-1794895436478-prt_1e81adabb00180LodVmdUO0zhK.png)
+# Final state
+Flow: EBOND Create Incident
+![alt text](image-1.png)
+Workflow - note its Active, run on Object:Case, triggered upon: a record is created. OPtimized for actions & related records. The flow goes under the Run Asynchronously path
 
-Steps: the screenshots folder. Showcases: where the duplicate screenshots showed up.
-![Folder structure](screenshots/from-chat/160-1794895662562-prt_1e81e4de1001xTbWUsKTrIfvsp.png)
+![alt text](image-2.png)
 
-Steps: the folder tree. Showcases: where the screenshots live on disk.
+Configure Start
+![alt text](image-3.png)
+
+Configure Start continued - Optimize the flow, and entry conditions
+![alt text](image-4.png) 
+
+Important:Note the Add Asyncronous Path
+ ![alt text](image-5.png)
+
+##  Set Incident Body
+e.g. {!IncidentBody.shortx5fdescription} Equals {!$Record.Subject} (Triggered Case > Subject)  ..etc for the rest of the fields.
+Note also items can be assigned Strings, not just from flow variables.
+![alt text](image-6.png) 
+
+## After Set Incident Body, Create Incident Action HTTP Callout 
+![alt text](image-7.png)
+
+## Save Incident Ids - Our local Case gets the Link Fields for ServiceNow incident(INC#,sys_id) and "Salesforce" for its Sync Source.
+Setting fields on Case based on the Response received on ServiceNow i.e. what ticket it created and its properties (number, Sys_id), along with tracking our Source as "Salesforce"
+ ServiceNow Number  <= {!EBONDCreateIncident_Create_Incident.2XX.result.z0number}
+
+ ![alt text](image-8.png)
 
 ## Lab 3 — ServiceNow to Salesforce
 <details>
