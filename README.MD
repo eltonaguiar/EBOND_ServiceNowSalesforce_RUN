@@ -146,6 +146,7 @@ The classic URL was:
 | `screenshots/02-flow-action-created.png` | Captured. Action created on Run Asynchronously. Next: Label `Create Incident`, API Name `Create_Incident`, then map the six body fields. |
 | `screenshots/02-flow-action-body.png` | Captured. Label is empty and red. Body is one key. Use New Resource. Transaction Control stays Let the flow decide. |
 | `screenshots/02-assignment-plus.png` | Captured. Body value is IncidentBody. Assignment is not inside the action panel. Close the panel. On the canvas, click the + between Run Asynchronously and Create Incident, then choose Assignment. |
+| `screenshots/02-assignment-plus-circled.png` | Captured. The circled plus is above Create Incident, under Run Asynchronously. Choose Assignment. |
 | `screenshots/02-output-resources.png` | Captured. Do not check Manually assign variables. That stores the reply, not the request. |
 | `screenshots/02-new-resource-menu.png` | Captured. Body Value menu. Click + New Resource. Do not pick a global variable. That resource is the request body. |
 | `screenshots/02-new-resource-dialog.png` | Captured. API Name `IncidentBody`. Apex-Defined. Leave collection and availability unchecked. Done. The six fields are not on this dialog. |
@@ -248,6 +249,8 @@ Response, what ServiceNow sends back. Paste this on the Sample JSON Response scr
 ![Action panel, body is one value](screenshots/02-flow-action-body.png)
 
 ![Assignment plus is on the canvas, above the action](screenshots/02-assignment-plus.png)
+
+![Circled plus above Create Incident](screenshots/02-assignment-plus-circled.png)
 
 ![Do not check Manually assign variables](screenshots/02-output-resources.png)
 
