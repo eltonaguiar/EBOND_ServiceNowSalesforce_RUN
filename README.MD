@@ -113,6 +113,7 @@ The classic URL was:
 |------|-----------------|
 | `screenshots/02-setup-gear.png` | Captured. Gear icon, top right, is the way into Setup. Then Object Manager, search `case`, open API name Case. |
 | `screenshots/02-case-field-details.png` | Captured. Step 2 of 4, Enter the details. Field Name `Snow_Sys_Id`, length 32, Unique and External ID checked. |
+| `screenshots/02-case-layouts.png` | Captured. Step 4 of 4. All five Case layouts checked, including Case Layout and Close Case Layout. |
 | `screenshots/02-case-fields.png` | Case fields `Snow_Sys_Id__c`, `Snow_Number__c`, `Snow_Sync_Source__c`. |
 | `screenshots/02-named-credential.png` | Named Credential `EBOND_ServiceNow`. No secret in the frame. |
 | `screenshots/02-case-and-incident.png` | The Case, and the Incident whose `u_ebond_sf_case_id` matches the Case Id. |
@@ -120,6 +121,8 @@ The classic URL was:
 ![Gear icon opens Setup, then Object Manager Case](screenshots/02-setup-gear.png)
 
 ![Step 2 Enter the details for Snow_Sys_Id](screenshots/02-case-field-details.png)
+
+![Step 4 all Case layouts checked](screenshots/02-case-layouts.png)
 
 ![Case fields placeholder](screenshots/02-case-fields.png)
 
