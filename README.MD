@@ -261,6 +261,8 @@ Next, close the Create Incident panel. Click the + under Create Incident and add
 
 ELI5: `2XX` is not a ServiceNow field. It is Salesforce's name for the success reply. ServiceNow answers with a status number. `200` through `299` means it worked. A new Incident usually comes back as `201`. Salesforce puts every success answer in one box named `2XX`. The Incident id and number are inside that box, under `result`. A `400` or `500` does not go there. Those land in Default Exception. Response Code is the raw number, such as `201`. Open `2XX`, open `result`, and pick `sys_id` or `number`. Do not pick the whole box.
 
+First row: ServiceNow Sys Id (`Snow_Sys_Id__c`) = `{!EBONDCreateIncident_Create_Incident.2XX.result.sys_id}`. Left side is the Case field. Right side is the Create Incident action, then the success box, then `result`, then `sys_id`. Do not type it. Typing `cre` turns the box red. Pick Outputs from EBONDCreateIncident: Create Incident, then 2XX, then result, then sys_id. If Salesforce shows `sys_x5f_id`, that is still `sys_id`. `_x5f_` is how it writes an underscore. Do not type `sysx5fid`.
+
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
 ![Save the flow dialog](screenshots/02-save-flow.png)
