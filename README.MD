@@ -255,6 +255,8 @@ Response, what ServiceNow sends back. Paste this on the Sample JSON Response scr
 
 ![Assignment panel, label required](screenshots/02-assignment-panel.png)
 
+`IncidentBody` is not a Case and not an Incident. It is the empty request envelope. The Assignment fills it from the Salesforce Case that just triggered the Flow. Subject becomes `short_description`. Description becomes `description`. The Case Id becomes `u_ebond_sf_case_id`. `urgency`, `impact`, and `u_sync_source` are fixed text. The next element sends that filled envelope to ServiceNow, which creates the Incident. Do not select the whole `IncidentBody`. Pick one field per row.
+
 ![Do not check Manually assign variables](screenshots/02-output-resources.png)
 
 ![Click New Resource for the request body](screenshots/02-new-resource-menu.png)
