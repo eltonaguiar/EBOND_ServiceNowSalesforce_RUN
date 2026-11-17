@@ -121,6 +121,7 @@ The classic URL was:
 | `screenshots/02-external-credential-name.png` | Captured. Save failed. Label may have a space. Name may not. Use `EBOND_ServiceNow`. |
 | `screenshots/02-principal-form.png` | Captured. Create Principal. Sequence Number 1. Identity Type Named Principal, not Per User Principal. |
 | `screenshots/02-principal-filled.png` | Captured. Same form. Username `admin`. Password covered. |
+| `screenshots/02-principal-saved.png` | Captured. Principal saved. Sequence 1, `PDI_admin`, Named Principal, Authentication Status Configured, username `admin`. External Credential name is `EBONDServiceNow`. Related Named Credentials is still empty. |
 | `screenshots/02-named-credential.png` | Named Credential `EBOND_ServiceNow`. No secret in the frame. |
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
@@ -145,6 +146,8 @@ The classic URL was:
 ![Create Principal: sequence 1, Named Principal](screenshots/02-principal-form.png)
 
 ![Principal filled, password covered](screenshots/02-principal-filled.png)
+
+![Principal saved, Named Credential not created yet](screenshots/02-principal-saved.png)
 
 ![Named Credential placeholder](screenshots/02-named-credential.png)
 
