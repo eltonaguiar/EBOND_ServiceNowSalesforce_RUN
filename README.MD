@@ -136,6 +136,7 @@ The classic URL was:
 | `screenshots/02-http-callout-name.png` | Captured. New HTTP Callout. Name `EBONDCreateIncident`, no underscore. Named Credential `EBOND_ServiceNow`. |
 | `screenshots/02-http-callout-filled.png` | Captured. Name and Named Credential filled. URL shows the dev instance. Next. |
 | `screenshots/02-http-callout-method.png` | Captured. Next screen. Label `Create Incident`, method POST, path `/api/now/table/incident`. No query key. |
+| `screenshots/02-http-callout-json.png` | Captured. Sample JSON Request. Paste the sample, Review, then Next. |
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
 | `screenshots/02-case-and-incident.png` | The Case, and the Incident whose `u_ebond_sf_case_id` matches the Case Id. |
@@ -189,6 +190,8 @@ The classic URL was:
 ![HTTP Callout filled, click Next](screenshots/02-http-callout-filled.png)
 
 ![Method POST and incident path](screenshots/02-http-callout-method.png)
+
+![Sample JSON Request](screenshots/02-http-callout-json.png)
 
 ![Case 00001026 created, ServiceNow fields empty](screenshots/02-case-created.png)
 
