@@ -1,15 +1,6 @@
-# EBOND lab run — screenshot placeholders
+# EBOND lab run — screenshots
 
 This repo holds the screenshots from one pass through the lab.
-
-The files that look like white caption cards were redrawn stand-ins. They are not the user's captures. Do not treat them as proof. The real captures from this chat are in `screenshots/from-chat/`, numbered in the order they were sent. Shots not yet matched to a step are listed in the appendix.
-
-These files are the user's pixels, not redraws:
-
-- `screenshots/02-explorer-confirm.png` — the browser dialog, Modifying data, confirm to continue.
-- `screenshots/02-table-api-methods.png` — REST API Explorer method list. POST creates a record.
-- `screenshots/02-external-credential-detail.png` — External Credential `EBONDServiceNow`, created first. Principal `PDI_admin`.
-- `screenshots/02-named-credential-detail.png` — Named Credential `EBOND_ServiceNow`, created after. It points at External Credential `EBOND ServiceNow`.
 
 Lab: https://eltonaguiar.github.io/EBOND_ServiceNowSalesforce/
 
@@ -17,386 +8,205 @@ Code: https://github.com/eltonaguiar/EBOND_ServiceNowSalesforce
 
 Do not commit passwords, tokens, consumer secrets, or session cookies. Cover them before you save the image.
 
-This README is the page for now. A GitHub Pages site can be added later from these same files; do not turn that on until the placeholders have been replaced.
+Two kinds of image live here:
+
+- `screenshots/from-chat/` — the authentic captures you sent in the chat, numbered in the order they were sent. These are the real screenshots.
+- `screenshots/redrawn-stand-ins/` — caption cards a previous pass drew to stand in for missing screenshots. They are not real Salesforce or ServiceNow screens. They are parked here, out of the narrative, so nobody mistakes them for proof.
+
+Each real screenshot below lists the steps that produced it and what it showcases. The mapping is by chat order, not by looking at the pixels.
 
 ## Lab 0 — Free instances
 
 **Why.** Nothing else in the lab can be proven until both free accounts exist and you know the host each API will call. A wrong Salesforce host (Lightning instead of My Domain) fails every later call and looks like an auth bug.
 
-| File | What to capture |
-|------|-----------------|
-| `screenshots/00-pdi-url.png` | Captured. Instance `dev296154`, Australia, Online, user `admin`. Password masked. |
-| `screenshots/00-salesforce-mydomain.png` | Captured. Developer Edition welcome on the Lightning host. API host is `orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com`. |
+### Real captures
 
-![PDI instance dev296154, password masked](screenshots/00-pdi-url.png)
-
-![Salesforce Developer Edition welcome](screenshots/00-salesforce-mydomain.png)
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 000 | `from-chat/000-…EgGe69H.png` | Open your ServiceNow PDI instance page. | The instance URL and status. |
+| 001 | `from-chat/001-…AZC2DAM.png` | Open your ServiceNow PDI instance page. | The instance URL and status. |
+| 002 | `from-chat/002-…Brp6cmdM.png` | Salesforce → Setup → Quick Find `My Domain`. | The Salesforce My Domain API host, not the Lightning host. |
 
 ## Lab 1 — Table API
 
-**Why.** This is the smallest proof that ServiceNow accepts an outside create. A 201 and a matching Incident mean the instance, the user, and the table are good before Salesforce is involved. If this fails, do not debug Flow or Apex yet.
+**Why.** The smallest proof that ServiceNow accepts an outside create. A 201 and a matching Incident mean the instance, the user, and the table are good before Salesforce is involved. If this fails, do not debug Flow or Apex yet.
 
-| File | What to capture |
-|------|-----------------|
-| `screenshots/01-explorer-setup.png` | Captured. Namespace `now`, API Name Table API, tableName Incident (`incident`). |
-| `screenshots/01-explorer-body.png` | Captured. Raw body filled, before Send. Request format `application/json`, authorization Send as me. |
-| `screenshots/01-explorer-201.png` | Captured. Status 201 Created. Number `INC0010002`. sys_id `5dba2bdac3e8df54310abf0d050131a5`. Session token covered. |
-| `screenshots/01-incident-list.png` | Captured. Ticket list after the 201. `INC0010002`, opened 2026-11-16 14:46:37, short description "Lab 1 — from the explorer", state New, updated by admin. |
+### Real captures — REST API Explorer
 
-The empty Request Body frame was skipped. After Send, the browser asks "Modifying data, confirm to continue". Click OK. That dialog is expected. It is not the proof. The proof is the 201 and the Incident row.
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 003 | `from-chat/003-…Rviq0rj7.png` | Filter navigator → System Web Services → REST → REST API Explorer. | The explorer open, namespace `now`, Table API. |
+| 004 | `from-chat/004-…apxdm0Kz.png` | Pick Create a record (POST), table `incident`, fill the request body. | The request body. One of these was sent empty; that is the skip-able one. |
+| 005 | `from-chat/005-…LBAY4Df9Y0.png` | Same screen as 004. | The other request-body view. |
+| 006–012 | `from-chat/006-…011-…`, `012-…Y0J07.png` | Click Send, then OK on the "Modifying data, confirm to continue" dialog. | The send result, the confirm dialog, and the response body with `result.number` and `result.sys_id`. |
 
-The explorer sets two headers for you. The captured request shows both as `application/json`:
+### Real captures — the ticket
 
-- `Accept: application/json`
-- `Content-Type: application/json`
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 013 | `from-chat/013-…O7oFSpv.png` | Open the Incident list after the 201. | The new ticket row. |
 
-You must set both yourself later, in curl or in the Salesforce callout. Missing either one returns 400. The explorer will not save you then.
+### Real captures — a second create
 
-**ELI5.** `Content-Type` is the label on the box you are sending. It says "this box is JSON." `Accept` is the label you want on the box they send back. It says "please answer in JSON." If you forget the label on the way in, ServiceNow does not know how to read the body and returns 400. If you forget the label on the way back, you may get HTML or an empty error instead of the Incident number.
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 014 | `from-chat/014-…a3p08B.png` | POST again, open the row in the classic form. | `INC0010003` form. |
+| 015 | `from-chat/015-…rMMN7.png` | Filter the list to that number. | `INC0010003` filtered list. The `sys_id` comes from the URL, not the list. |
 
-**Properly.** These are HTTP headers, not fields in the JSON body.
+### Real captures — curl / PowerShell / Command Prompt
 
-- `Content-Type: application/json` tells the server how to parse the request body. The Table API expects a JSON object. Without this header it will not treat `{ "short_description": "..." }` as that object, and the create fails with 400.
-- `Accept: application/json` is the response format you will accept. The Table API can negotiate. Asking for JSON is what makes the 201 body a `result` object with `number` and `sys_id`, which is what the later labs read. The explorer sets both to `application/json` in Request format and Response format. A curl call and a Salesforce HTTP callout do not. Copy both headers into those calls.
-
-![Explorer namespace now, table incident](screenshots/01-explorer-setup.png)
-
-![Explorer raw body before send](screenshots/01-explorer-body.png)
-
-![201 Created, INC0010002, token covered](screenshots/01-explorer-201.png)
-
-![Incident list INC0010002](screenshots/01-incident-list.png)
-
-### Windows PowerShell
-
-The Linux `curl` paste fails in PowerShell. `Invoke-RestMethod` with `Read-Host` worked on Windows PowerShell 5.1. `sys_updated_on=2026-11-16 23:12:17`.
-
-The password is not in the command text, but it does stay on the screen after you type it. Cover it before a screenshot, then run `Clear-Host`. The bar in this shot is that cover.
-
-![PowerShell 5.1 Read-Host success, password covered](screenshots/01-powershell-51-201.png)
-
-<details>
-<summary>Linux curl — same proof, collapsed</summary>
-
-The multi-line `curl` command works in bash. It does not work in PowerShell. This run returned `INC0010007`, sys_id `89e6f3dec32cdf54310abf0d05013123`, `sys_updated_on` `2026-11-16 23:09:16`. The password in the capture is covered.
-
-![Linux curl 201, password covered](screenshots/01-linux-curl-201.png)
-
-</details>
-
-<details>
-<summary>Command Prompt — same proof, collapsed</summary>
-
-`curl.exe -u admin` prompts for the password, so Command Prompt never rewrites `%` or `^`. This run returned `INC0010008`, sys_id `5a60bf9ac32cdf54310abf0d05013147`, created `2026-11-16 23:11:32`. No password is in the frame.
-
-![Command Prompt curl 201](screenshots/01-cmd-curl-201.png)
-
-</details>
-
-### Second create — INC0010003
-
-A second POST made another Incident. The list does not show `sys_id`. Open the row in the classic form and read it from the URL.
-
-| | |
-|--|--|
-| Number | `INC0010003` |
-| sys_id | `665ce35ac3e8df54310abf0d050131fd` |
-| Opened | 2026-11-16 14:53:48 |
-| Filter | Number = INC0010003 |
-
-The classic URL was:
-
-`https://dev296154.service-now.com/now/nav/ui/classic/params/target/incident.do%3Fsys_id%3D665ce35ac3e8df54310abf0d050131fd%26sysparm_record_list%3Dnumber%253DINC0010003`
-
-`sys_id%3D` is `sys_id=`. The 32 characters after it are the id. That is the value Lab 2 stores in `Snow_Sys_Id__c`. Do not use the display number `INC0010003` as the sys_id.
-
-![INC0010003 form](screenshots/01-incident-form-inc0010003.png)
-
-![INC0010003 filtered list](screenshots/01-incident-list-inc0010003.png)
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 016 | `from-chat/016-…OOOAS.png` | Run the one-line curl in the Windows shell. | A successful create, password covered. |
+| 017 | `from-chat/017-…YaF4Td.png` | Run the Linux curl example. | Linux success, password covered. |
+| 018 | `from-chat/018-…P1.png` | Run `curl.exe -u admin` in Command Prompt. | Prompt-for-password success. |
+| 019 | `from-chat/019-…iE2sTn.png` | Run `Invoke-RestMethod` with `Read-Host` in PowerShell. | PowerShell success. Password persists on screen; censored. |
 
 ## Lab 2 — Salesforce to ServiceNow
 
-**Why.** This is the first real direction of the integration: a Case save creates one Incident and stores the Case Id on it. The screenshots prove the credential is named, the correlation field is filled, and a second save would update instead of duplicating.
-
-| File | What to capture |
-|------|-----------------|
-| `screenshots/02-setup-gear.png` | Captured. Gear icon, top right, opens the Setup Menu. |
-| `screenshots/02-setup-menu.png` | Captured. Click Setup. Do not click Setup for current app. |
-| `screenshots/02-case-field-details.png` | Captured. Step 2 of 4, Enter the details. Field Name `Snow_Sys_Id`, length 32, Unique and External ID checked. |
-| `screenshots/02-case-layouts.png` | Captured. Step 4 of 4. All five Case layouts checked, including Case Layout and Close Case Layout. |
-| `screenshots/02-case-fields.png` | Captured. All three exist. `Snow_Sys_Id__c` is Text(32), External ID, unique, indexed. `Snow_Number__c` is Text(40). `Snow_Sync_Source__c` is Text(20). |
-| `screenshots/02-named-credential-empty.png` | Captured. Quick Find `named credentials`. Empty list. Next click is New. |
-| `screenshots/02-external-credential-protocol.png` | Captured. Protocol list. Use Basic Authentication, not Custom. |
-| `screenshots/02-external-credential-name.png` | Captured. Save failed. Label may have a space. Name may not. Use `EBOND_ServiceNow`. |
-| `screenshots/02-principal-form.png` | Captured. Create Principal. Sequence Number 1. Identity Type Named Principal, not Per User Principal. |
-| `screenshots/02-principal-filled.png` | Captured. Same form. Username `admin`. Password covered. |
-| `screenshots/02-principal-saved.png` | Captured. Principal saved. Sequence 1, `PDI_admin`, Named Principal, Authentication Status Configured, username `admin`. External Credential name is `EBONDServiceNow`. Related Named Credentials is still empty. |
-| `screenshots/02-user-detail.png` | Captured. Top-right picture, then your name, then User Detail. That is the user to assign. |
-| `screenshots/02-permission-sets.png` | Captured. Setup, Users, Permission Sets. License stays --None--. |
-| `screenshots/02-permset-principal-access.png` | Captured. Permission set `PDI admin`. Next click is External Credential Principal Access, then check `PDI_admin`. Manage Assignments is on this page. |
-| `screenshots/02-principal-enabled.png` | Captured. Edit, Add arrow, `EBONDServiceNow - PDI_admin` is in Enabled. Save, then Manage Assignments. |
-| `screenshots/02-principal-access-saved.png` | Captured. Saved. Permission set `PDI admin` lists `EBONDServiceNow - PDI_admin`. Next is Manage Assignments. |
-| `screenshots/02-permset-assigned.png` | Captured. Add Assignment, user Elton Aguiar, profile System Administrator. One assignment. Expires On blank. |
-| `screenshots/02-named-credential-form.png` | Captured. New Named Credential. External Credential EBOND ServiceNow. Generate Authorization Header checked. Name must keep the underscore: `EBOND_ServiceNow`. |
-| `screenshots/02-named-credential.png` | Captured. Saved. Name `EBOND_ServiceNow`. URL `https://dev296154.service-now.com/`. External Credential `EBOND ServiceNow`. Generate Authorization Header on. |
-| `screenshots/02-flows-home.png` | Captured. Quick Find `flows`. Next click is New Flow, top right. Not an existing row. |
-| `screenshots/02-flow-async.png` | Captured. Case, record is created, Actions and Related Records, Add Asynchronous Path on. HTTP call goes on Run Asynchronously. Action is Create HTTP Callout. |
-| `screenshots/02-create-http-callout.png` | Captured. Search Actions. The link at the bottom, Create HTTP Callout. Not a category row. |
-| `screenshots/02-http-callout-name.png` | Captured. New HTTP Callout. Name `EBONDCreateIncident`, no underscore. Named Credential `EBOND_ServiceNow`. |
-| `screenshots/02-http-callout-filled.png` | Captured. Name and Named Credential filled. URL shows the dev instance. Next. |
-| `screenshots/02-http-callout-method.png` | Captured. Next screen. Label `Create Incident`, method POST, path `/api/now/table/incident`. No query key. |
-| `screenshots/02-http-callout-path-filled.png` | Captured. Label, POST, and `/api/now/table/incident` filled. No query key. Next. |
-| `screenshots/02-http-callout-json.png` | Captured. Sample JSON Request. Paste the sample, Review, then Next. |
-| `screenshots/02-http-callout-json-pasted.png` | Captured. Sample pasted. Red until Review. Then Next. |
-| `screenshots/02-http-callout-reviewed.png` | Captured. Review succeeded. Six fields, all String. Next click is Next. |
-| `screenshots/02-http-callout-response-method.png` | Captured. Pick Use Example Response, not Connect for Schema. Then Next. |
-| `screenshots/02-example-response-selected.png` | Captured. Use Example Response is selected. Next. |
-| `screenshots/02-http-callout-response-json.png` | Captured. Sample JSON Response, empty. Do not paste the request JSON here. |
-| `screenshots/02-flow-action-created.png` | Captured. Action created on Run Asynchronously. Next: Label `Create Incident`, API Name `Create_Incident`, then map the six body fields. |
-| `screenshots/02-flow-action-body.png` | Captured. Label is empty and red. Body is one key. Use New Resource. Transaction Control stays Let the flow decide. |
-| `screenshots/02-assignment-plus.png` | Captured. Body value is IncidentBody. Assignment is not inside the action panel. Close the panel. On the canvas, click the + between Run Asynchronously and Create Incident, then choose Assignment. |
-| `screenshots/02-assignment-plus-circled.png` | Captured. The circled plus is above Create Incident, under Run Asynchronously. Choose Assignment. |
-| `screenshots/02-assignment-panel.png` | Captured. Assignment panel. `IncidentBody` is the empty request envelope. Fill it from the Salesforce Case that triggered the Flow. Do not select the whole resource. Pick one field per row. |
-| `screenshots/02-output-resources.png` | Captured. Do not check Manually assign variables. That stores the reply, not the request. |
-| `screenshots/02-new-resource-menu.png` | Captured. Body Value menu. Click + New Resource. Do not pick a global variable. That resource is the request body. |
-| `screenshots/02-new-resource-dialog.png` | Captured. API Name `IncidentBody`. Apex-Defined. Leave collection and availability unchecked. Done. The six fields are not on this dialog. |
-
-The request sample and the response sample are different on purpose.
-
-Request, what Salesforce sends:
-
-```json
-{
-  "short_description": "Lab 2 from Flow",
-  "description": "Created from a Salesforce Case",
-  "urgency": "2",
-  "impact": "2",
-  "u_ebond_sf_case_id": "500000000000000AAA",
-  "u_sync_source": "salesforce"
-}
-```
-
-Response, what ServiceNow sends back. Paste this on the Sample JSON Response screen, Review, then Save. `number` must stay String. `INC0010002` is text, not an integer.
-
-```json
-{
-  "result": {
-    "sys_id": "5dba2bdac3e8df54310abf0d050131a5",
-    "number": "INC0010002"
-  }
-}
-```
-| `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
-| `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
-| `screenshots/02-case-and-incident.png` | The Case, and the Incident whose `u_ebond_sf_case_id` matches the Case Id. |
-
-![Gear icon opens the Setup Menu](screenshots/02-setup-gear.png)
-
-![Click Setup, not Setup for current app](screenshots/02-setup-menu.png)
-
-![Step 2 Enter the details for Snow_Sys_Id](screenshots/02-case-field-details.png)
-
-![Step 4 all Case layouts checked](screenshots/02-case-layouts.png)
-
-![Case fields placeholder](screenshots/02-case-fields.png)
-
-![Named Credentials empty list, click New](screenshots/02-named-credential-empty.png)
-
-![External Credential protocol list, pick Basic Authentication](screenshots/02-external-credential-protocol.png)
-
-![Name had a space, Save failed](screenshots/02-external-credential-name.png)
-
-![Create Principal: sequence 1, Named Principal](screenshots/02-principal-form.png)
-
-![Principal filled, password covered](screenshots/02-principal-filled.png)
-
-![Principal saved, Named Credential not created yet](screenshots/02-principal-saved.png)
-
-![Profile, name, User Detail](screenshots/02-user-detail.png)
-
-![Permission Sets. Leave the license blank.](screenshots/02-permission-sets.png)
-
-![External Credential Principal Access is in the permission set settings list](screenshots/02-permset-principal-access.png)
-
-![Principal moved to Enabled](screenshots/02-principal-enabled.png)
-
-![Principal access saved](screenshots/02-principal-access-saved.png)
-
-![Permission set assigned to the System Administrator user](screenshots/02-permset-assigned.png)
-
-![New Named Credential form](screenshots/02-named-credential-form.png)
-
-![Named Credential placeholder](screenshots/02-named-credential.png)
-
-![Flows home, click New Flow](screenshots/02-flows-home.png)
-
-![Async path on, Create HTTP Callout](screenshots/02-flow-async.png)
-
-![Create HTTP Callout link at the bottom of Search Actions](screenshots/02-create-http-callout.png)
-
-![New HTTP Callout name has no underscore](screenshots/02-http-callout-name.png)
-
-![HTTP Callout filled, click Next](screenshots/02-http-callout-filled.png)
-
-![Method POST and incident path](screenshots/02-http-callout-method.png)
-
-![Method and path filled](screenshots/02-http-callout-path-filled.png)
-
-![Sample JSON Request](screenshots/02-http-callout-json.png)
-
-![Sample pasted, click Review](screenshots/02-http-callout-json-pasted.png)
-
-![Review succeeded, six String fields](screenshots/02-http-callout-reviewed.png)
-
-![Use Example Response, not Connect for Schema](screenshots/02-http-callout-response-method.png)
-
-![Use Example Response selected](screenshots/02-example-response-selected.png)
-
-![Sample JSON Response, do not paste the request](screenshots/02-http-callout-response-json.png)
-
-![Action created on the async path](screenshots/02-flow-action-created.png)
-
-![Action panel, body is one value](screenshots/02-flow-action-body.png)
-
-![Assignment plus is on the canvas, above the action](screenshots/02-assignment-plus.png)
-
-![Circled plus above Create Incident](screenshots/02-assignment-plus-circled.png)
-
-![Assignment panel, label required](screenshots/02-assignment-panel.png)
-
-Filled Assignment, ready to close. Label `Set Incident Body`. Six Equals rows: Subject, Description, urgency `2`, impact `2`, Case ID, and `salesforce`. Close the panel, then Save the flow. On the Save dialog, Flow Label `EBOND Create Incident`, Flow API Name `EBOND_Create_Incident`, Description blank. Do not open Show Advanced. Saved flow is Inactive. Do not Activate yet.
-
-Next, close the Create Incident panel. Click the + under Create Incident and add Update Records, Label `Save Incident Ids`. Use the Case record that triggered the flow. Set ServiceNow Sys Id from Create Incident → 2XX → result → sys_id, ServiceNow Number from result → number, and Sync Source to `salesforce`. Save. Do not Activate yet.
-
-ELI5: `2XX` is not a ServiceNow field. It is Salesforce's name for the success reply. ServiceNow answers with a status number. `200` through `299` means it worked. A new Incident usually comes back as `201`. Salesforce puts every success answer in one box named `2XX`. The Incident id and number are inside that box, under `result`. A `400` or `500` does not go there. Those land in Default Exception. Response Code is the raw number, such as `201`. Open `2XX`, open `result`, and pick `sys_id` or `number`. Do not pick the whole box.
-
-First row: ServiceNow Sys Id (`Snow_Sys_Id__c`) = `{!EBONDCreateIncident_Create_Incident.2XX.result.sys_id}`. Left side is the Case field. Right side is the Create Incident action, then the success box, then `result`, then `sys_id`. Do not type it. Typing `cre` turns the box red. Pick Outputs from EBONDCreateIncident: Create Incident, then 2XX, then result, then sys_id. If Salesforce shows `sys_x5f_id`, that is still `sys_id`. `_x5f_` is how it writes an underscore. Do not type `sysx5fid`.
-
-The left side of each row is a Case field you are filling in. The right side is where the value comes from. Triggering Case is the Salesforce Case that started the flow. It has Subject, Description, and Id. It does not have a ServiceNow id yet. That id does not exist until Create Incident calls ServiceNow and ServiceNow answers. Outputs from EBONDCreateIncident: Create Incident is that answer. Pick it for ServiceNow Sys Id and ServiceNow Number. Do not pick Triggering Case for those two. Sync Source is not in the answer. Type `salesforce` for that row.
-
-Second row: ServiceNow Number (`Snow_Number__c`) = `{!EBONDCreateIncident_Create_Incident.2XX.result.z0number}`. The pill you pick is result then number. `z0number` is still `number`. `number` is a reserved word, so the generated class renames it. Same field. Do not type `z0number`. That value is the Incident number, such as `INC0010002`.
-
-Third row: Sync Source = `salesforce`. No quotes. No capital S. Quotes would be stored as part of the value. It is case sensitive. `Salesforce` is not the same word.
-
-Assignment here is not homework. It is the earlier Flow element named Set Incident Body. That element already sent lowercase `salesforce` to ServiceNow in `u_sync_source`. This third row writes the same word onto the Case, so both records say Salesforce started this sync. Lab 3's ServiceNow rule skips the echo only when that field is exactly `salesforce`. A capital S does not match, and the echo can loop.
-
-Proof, this run: Salesforce Case `00001027`, Subject `EBOND lab 2`, wrote ServiceNow Incident `INC0010010`. Case fields came back as ServiceNow Sys Id `6b9981eec3205394310abf0d0501318a`, ServiceNow Number `INC0010010`, Sync Source `salesforce`. The Incident form shows Short description `EBOND lab 2`. The custom fields `u_ebond_sf_case_id` and `u_sync_source` are not on the default Incident form. Read them with REST API Explorer: GET `incident`, query `number=INC0010010`, fields `number,sys_id,u_ebond_sf_case_id,u_sync_source,urgency,impact`. `u_ebond_sf_case_id` must start with `500`, not `00001027`. Impact and Urgency on the form showed `3 - Low`, not the `2` the Flow sent. The id link is the proof.
-
-What we learned: a new Case is enough. Set Incident Body fills the request from the triggering Case. Subject becomes `short_description`. Description becomes `description`. Urgency and impact are the text `2`. `u_ebond_sf_case_id` is the Case Id, not the Case number. `u_sync_source` is `salesforce`. EBONDCreateIncident: Create Incident is a Flow HTTP Callout action, not a Case field. The External Service `EBONDCreateIncident` was created by that wizard earlier in this lab. The call is POST. Host comes from the Named Credential. Path is `/api/now/table/incident`. Full URL `https://dev296154.service-now.com/api/now/table/incident`. Explorer `latest` uses that path. Explorer `v1` inserts `/v1/` and must not be copied into the Flow.
-
-POST creates. GET, PUT, PATCH, and DELETE are not wired. Deleting or editing one side does nothing to the other side.
-
-![Table API methods](screenshots/02-table-api-methods.png)
-
-![Explorer confirms a real write](screenshots/02-explorer-confirm.png)
-
-Warning: REST API Explorer Send on POST, PUT, PATCH, or DELETE changes the instance. The dialog says Modifying data, confirm to continue. An empty body still creates an Incident. This run made `INC0010011` and `INC0010012` that way. Caller and Short description are mandatory on the form, not on the API. Those two are explorer noise, not the Case proof.
-
-Cheat sheet, best effort from the lab notes and the saved screens. An External Credential is the login. A Named Credential is the address that uses that login. The permission set is the badge that lets the Salesforce user use the login. External Credential was created first. Named Credential was created after. The link does not mean the Named Credential came first. After the principal was saved, Related Named Credentials was still empty. This run linked the permission set to the External Credential principal `EBONDServiceNow - PDI_admin`, on the set labeled `PDI admin`. It did not link the permission set to the Named Credential. The Named Credential `EBOND_ServiceNow` points at External Credential `EBOND ServiceNow` and is what the Flow HTTP Callout picks. Saved External Credential name is `EBONDServiceNow`, not `EBOND_ServiceNow`. Protocol Basic Authentication. Principal sequence 1, `PDI_admin`, Named Principal, username `admin`. Named Credential URL `https://dev296154.service-now.com/`. Generate Authorization Header on. No custom headers.
-
-![Assignment filled](screenshots/02-assignment-filled.png)
-
-![Save the flow dialog](screenshots/02-save-flow.png)
-
-`IncidentBody` is not a Case and not an Incident. It is the empty request envelope. The Assignment fills it from the Salesforce Case that just triggered the Flow. Subject becomes `short_description`. Description becomes `description`. The Case Id becomes `u_ebond_sf_case_id`. `urgency`, `impact`, and `u_sync_source` are fixed text. The next element sends that filled envelope to ServiceNow, which creates the Incident. Do not select the whole `IncidentBody`. Pick one field per row.
-
-![Do not check Manually assign variables](screenshots/02-output-resources.png)
-
-![Click New Resource for the request body](screenshots/02-new-resource-menu.png)
-
-![New Resource dialog, click Done](screenshots/02-new-resource-dialog.png)
-
-![Case 00001026 created, ServiceNow fields empty](screenshots/02-case-created.png)
-
-![Three new fields circled on the Case page](screenshots/02-case-fields-on-page.png)
-
-![Case and Incident placeholder](screenshots/02-case-and-incident.png)
-
-<details>
-<summary>How the Incident column was opened</summary>
-
-Added. From Incident INC0010003: form menu → **Configure > Table**. The table is Global, extends Task, and now has 98 columns. Both custom fields are in the list:
-
-| Label | Name | Type | Length |
-|-------|------|------|--------|
-| EBOND SF Case Id | `u_ebond_sf_case_id` | String | 18 |
-| Sync Source | `u_sync_source` | String | 20 |
-
-Not `x_snc_`. That prefix is ServiceNow's.
-
-![Incident dictionary column](screenshots/02-incident-column.png)
-
-</details>
+**Why.** The first real direction of the integration: a Case save creates one Incident and stamps it with the Case Id. The screenshots prove the credential is named, the correlation field is filled, and the Flow writes the Incident id back onto the Case.
+
+### ServiceNow fields
+
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 020–022 | `from-chat/020-…022-…ndkv.png` | Open an Incident, then the form menu (three lines) → Configure → Table. | The Incident table config; Global application, extends Task. |
+| 023 | `from-chat/023-…ePE6PG.png` | On the Columns related list, add the two custom columns. | `u_ebond_sf_case_id` and `u_sync_source` added. |
+
+### Salesforce fields
+
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 024–026 | `from-chat/024-…026-…Cft7HlH.png` | Salesforce gear (top right) → Setup, not Setup for current app. | The gear and the Setup menu. |
+| 027 | `from-chat/027-…v2p3urki8.png` | Object Manager → Case → Fields & Relationships → New → Text. Step 2 of 4. | The field details screen, where Extra Details lives. `Snow_Sys_Id__c` failed because you typed `__c`. |
+| 028 | `from-chat/028-…7V3Yrg.png` | Step 4 of 4, add to page layouts. | The Case layouts, all checked. |
+
+### Salesforce Cases and the new fields
+
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 029–032 | `from-chat/029-…032-…2nq.png` | Object Manager → Case → Fields & Relationships. | The three custom fields on the Case object. |
+| 033–035 | `from-chat/033-…035-…knaY.png` | App launcher → Cases. | The Cases tab. |
+| 036 | `from-chat/036-…Vkyu.png` | Open a Case. | The three new fields, highlighted. |
+| 037 | `from-chat/037-…GWkdy.png` | Gear → Setup. | The Setup screen. |
+
+### External Credential (created first)
+
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 038 | `from-chat/038-…HCKcjD.png` | Setup → Quick Find `named credentials` → Named Credentials → External Credentials tab → New. | The empty Named Credentials list. |
+| 039 | `from-chat/039-…3NpVs.png` | Save the External Credential, then Principals → New. | The Create Principal form. |
+| 040 | `from-chat/040-…d9gx.png` | External Credential Name field. | Label vs Name. The name must have no space. |
+| 041–043 | `from-chat/041-…043-…lXws5l.png` | Principal form: sequence and identity type. | Sequence Number 1, Identity Type Named Principal. |
+| 044–045 | `from-chat/044-…045-…99Wc.png` | Look for Manage Assignments on the principal. | There is no Manage Assignments button there. |
+
+### Permission set (links the principal)
+
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 046–047 | `from-chat/046-…047-…adnW.png` | Top-right picture → your name → User Detail. | The user to assign, profile System Administrator. |
+| 048–049 | `from-chat/048-…049-…83Pfs.png` | Setup → Users → Permission Sets → New. | License left `--None--`. |
+| 050–051 | `from-chat/050-…051-…oODt.png` | Open the permission set → External Credential Principal Access. | The principal access section. |
+| 052–054 | `from-chat/052-…054-…YMc5SX.png` | Edit → move `EBONDServiceNow - PDI_admin` to Enabled. | The principal enabled. |
+| 055 | `from-chat/055-…GhDCCV.png` | After enabling. | Principal access saved. |
+| 056–059 | `from-chat/056-…059-…aDt7U.png` | Manage Assignments → Add Assignment → check your user → Next → Assign. | One assignment to the System Administrator user. |
+
+### Named Credential (created after)
+
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 060 | `from-chat/060-…VSy7Y.png` | Named Credentials tab → New. | The New Named Credential form. |
+| 061–064 | `from-chat/061-…064-…5V6n.png` | Fill Name, URL, External Credential, Generate Authorization Header. | Name `EBOND_ServiceNow`, URL `https://dev296154.service-now.com/`, External Credential `EBOND ServiceNow`. |
+
+### Flow
+
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 065–067 | `from-chat/065-…067-…Wm14.png` | The Flow vs Apex choice. | Which path, and the pros and cons. |
+| 068–072 | `from-chat/068-…072-…uFPS.png` | Setup → Flows → New Flow → Record-Triggered Flow → Case → A record is created. Enable Add Asynchronous Path. | The async path, where the HTTP call goes. |
+| 073 | `from-chat/073-…63kt.png` | Run Asynchronously → plus → Action → Create HTTP Callout. | The Create HTTP Callout link. |
+| 074–075 | `from-chat/074-…075-…X6Q7.png` | New HTTP Callout: Name, Named Credential. | Name `EBONDCreateIncident`, no underscore. |
+| 076–079 | `from-chat/076-…079-…QNH3G.png` | Configure Invocable Action: Label, method POST, path `/api/now/table/incident`. | The POST method and incident path. |
+| 080–081 | `from-chat/080-…081-…0uYi.png` | The action panel: Label and Set Request Body. | What to fill in. |
+| 082 | `from-chat/082-…LWnZ.png` | Sample JSON Request → paste → Review. | Review succeeded. |
+| 083–086 | `from-chat/083-…086-…pcOL.png` | Select Sample Response Method → Use Example Response. | Not Connect for Schema. |
+| 087 | `from-chat/087-…oXBL.png` | Sample JSON Response → Review. | `number` shows as String. That is correct; `INC0010002` is text. |
+| 088–092 | `from-chat/088-…092-…TNVBR.png` | Save. The action lands on Run Asynchronously. | The action created. |
+| 093 | `from-chat/093-…AL1s.png` | The action Label. | Labels are fine. |
+| 094 | `from-chat/094-…vYqU.png` | Set Request Body → Value → + New Resource. | New Resource for the request body. |
+| 095–096 | `from-chat/095-…096-…yZv3x.png` | New Resource: API Name `IncidentBody`. | The resource dialog. |
+| 097 | `from-chat/097-…D6VOXs.png` | After Done, the body value is `IncidentBody`. | The body value. |
+| 098–099 | `from-chat/098-…099-…X7qk.png` | Assignment. Close the action panel first. | The assignment is not inside the action panel. |
+| 100–101 | `from-chat/100-…101-…BMhGD.png` | Plus above Create Incident → Assignment. | How to configure the assignment. |
+| 102–103 | `from-chat/102-…103-…jss1lg.png` | Assignment: pick an IncidentBody field, not the whole resource. | Selecting one field per row. |
+| 104 | `from-chat/104-…U87g7u.png` | Six Equals rows filled. | The assignment ready to save. |
+| 105 | `from-chat/105-…si73c.png` | Save the flow. | The Save dialog: Label `EBOND Create Incident`, API Name `EBOND_Create_Incident`. |
+| 106–110 | `from-chat/106-…110-…NJ64.png` | The flow canvas after save. | The flow canvas with Set Incident Body and Create Incident. |
+
+### Update Records and the proof
+
+| # | File | Steps to take it | What it showcases |
+|---|------|------------------|-------------------|
+| 111–112 | `from-chat/111-…112-…RXJ.png` | Plus under Create Incident → Update Records. | The Update Records element. |
+| 113–119 | `from-chat/113-…119-…ZKNW.png` | Row 1: ServiceNow Sys Id = Create Incident → 2XX → result → sys_id. | The value picker. `sys_x5f_id` is `sys_id`. |
+| 120–121 | `from-chat/120-…121-…RqH.png` | The right side of the rows. | Values come from Create Incident, not the triggering Case. |
+| 122–123 | `from-chat/122-…123-…VeuyC.png` | Row 2: ServiceNow Number = result → number. | `z0number` is `number`. |
+| 124 | `from-chat/124-…3ZvS.png` | Row 3: Sync Source. | Type `salesforce`, no quotes, lowercase. |
+| 125 | `from-chat/125-…zW0.png` | The filled Update Records panel. | Ready to save and activate. |
+| 126 | `from-chat/126-…ofBP19.png` | The panel with no Done button. | Close with X, then Save. |
+| 127–131 | `from-chat/127-…131-…cocEk.png` | Save and Activate. | The active flow. |
+| 132–136 | `from-chat/132-…136-…jzGFt.png` | App launcher → Cases → New. | The New Case form. Case Origin set to Web. |
+| 137 | `from-chat/137-…dJ9IIM.png` | Save the Case. | Case created. |
+| 138–140 | `from-chat/138-…140-…rmspGh.png` | Open the Case after the async call. | The ServiceNow fields filled on the Case. |
+| 141 | `from-chat/141-…mFBr.png` | ServiceNow global search for that number. | Verifying the Incident in ServiceNow. |
+| 142–151 | `from-chat/142-…151-…hmID7.png` | REST API Explorer GET, and the empty POST response. | `INC0010011` / `INC0010012` created by an empty POST. Impact and Urgency default to `3`. |
+| 152–153 | `from-chat/152-…153-…KLC.png` | REST API Explorer method list. | The method list. POST creates a record. |
+| 154–155 | `from-chat/154-…155-…I732.png` | Setup → Named Credentials → `EBOND_ServiceNow`. | The Named Credential detail, created after. |
+| 156 | `from-chat/156-…JQRm.png` | Setup → External Credentials → `EBONDServiceNow`. | The External Credential detail, created first. |
+| 157–158 | `from-chat/157-…158-…aZ.png` | Explorer Send on a write method. | The confirm dialog: Modifying data, confirm to continue. |
+| 159 | `from-chat/159-…0zhK.png` | The file listing. | Where the duplicate screenshots showed up. |
+| 160 | `from-chat/160-…vsp.png` | The folder structure. | Where the screenshots live on disk. |
 
 ## Lab 3 — ServiceNow to Salesforce
 
-**Why.** One direction is not a bond. This proves ServiceNow can call back and update the same Case, matched by `Snow_Sys_Id__c`, instead of creating a second Case. The 200 and the single Case update are the proof.
+<details>
+<summary>Not started yet</summary>
 
-| File | What to capture |
-|------|-----------------|
-| `screenshots/03-external-client-app.png` | External Client App. Consumer secret covered. |
-| `screenshots/03-rest-message-200.png` | REST Message `patch_case` test, HTTP 200. |
-| `screenshots/03-case-after-update.png` | Case after the Incident change. One update, not a stream. |
+**Why.** One direction is not a bond. This will prove ServiceNow can call back and update the same Case, matched by `Snow_Sys_Id__c`, instead of creating a second Case.
 
-![External Client App placeholder](screenshots/03-external-client-app.png)
+No screenshots yet. Do this lab, then drop the captures here.
 
-![REST Message 200 placeholder](screenshots/03-rest-message-200.png)
-
-![Case after update placeholder](screenshots/03-case-after-update.png)
+</details>
 
 ## Lab 4 — Ownership and loops
 
-**Why.** Bidirectional sync fails in production when both sides copy every field. This lab is where you show which system owns the title and which owns state, and that one save does not bounce forever.
+<details>
+<summary>Not started yet</summary>
 
-| File | What to capture |
-|------|-----------------|
-| `screenshots/04-ownership.png` | A note or form that shows Salesforce owns the title and ServiceNow owns state. |
+**Why.** Bidirectional sync fails when both sides copy every field. This will show which system owns the title and which owns state, and that one save does not bounce forever.
 
-![Ownership placeholder](screenshots/04-ownership.png)
+No screenshots yet.
+
+</details>
 
 ## Lab 5 — Troubleshooting
 
-**Why.** A clean run does not need a shot. If something failed, the before-and-after is the evidence that the failure was diagnosed (asleep instance, wrong host, missing principal access, callout before the save committed) and not papered over.
+<details>
+<summary>Not started yet</summary>
 
-| File | What to capture |
-|------|-----------------|
-| `screenshots/05-troubleshooting.png` | Optional. One failure you actually hit, and the screen after the fix. Leave the placeholder if the run was clean. |
+**Why.** A clean run does not need a shot. If something failed, the before-and-after is the evidence it was diagnosed, not papered over.
 
-![Troubleshooting placeholder](screenshots/05-troubleshooting.png)
+No screenshots yet.
 
-## Also useful
+</details>
 
-Not required. Take these if the screen is already open.
+## Appendix — redrawn stand-ins (not real screens)
 
-![My Domain API host](screenshots/00-my-domain.png)
+64 files in `screenshots/redrawn-stand-ins/`. A previous pass drew these caption cards to stand in for missing screenshots. They are not Salesforce or ServiceNow screens and must not be used as proof. They stay here out of the way.
 
-| Suggested file | Why |
-|----------------|-----|
-| `screenshots/00-my-domain.png` | Captured. Current My Domain URL `orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com`. |
-| `screenshots/02-principal-access.png` | Permission set granting External Credential Principal Access. This is the usual Lab 2 miss. |
-| `screenshots/02-incident-fields.png` | Incident columns `u_ebond_sf_case_id` and `u_sync_source`. |
-| `screenshots/04-syslog-one-write.png` | `syslog.list` filtered to EBOND, one write, not a loop. |
+## Appendix — full from-chat index
 
-![Confirm dialog, real capture](screenshots/02-explorer-confirm.png)
-
-![REST API Explorer methods, real capture](screenshots/02-table-api-methods.png)
-
-![External Credential detail, created first](screenshots/02-external-credential-detail.png)
-
-![Named Credential detail, created after](screenshots/02-named-credential-detail.png)
-
-## Appendix — Screenshots taken, to be identified and organized later
-
-161 files in `screenshots/from-chat/`. They are the chat captures, in send order. A later pass should attach each one to the lab step it shows. Until then they stay here so the redrawn caption cards are not mistaken for them.
-
-Known matches so far:
-
-| File in from-chat | What it is |
-|-------------------|------------|
-| `152-...YG4crEdkagwlUb.png` | REST API Explorer method list |
-| `154-...ZavVmpV3LipfDL.png` | Confirm dialog, Modifying data, confirm to continue |
-| `155-...KoI77w5rqiI732.png` | External Credential `EBONDServiceNow` |
-| `157-...fHWaWbTMphv5BG.png` | Named Credential `EBOND_ServiceNow` |
+All 161 authentic captures are in `screenshots/from-chat/`, in the order they were sent. The tables above attach them to the lab step that produced them. Anything not matched above stays here for a later pass.
 
 ## Replace a placeholder
 
