@@ -543,6 +543,19 @@ Setting fields on Case based on the Response received on ServiceNow i.e. what ti
 ## Lab 3 — ServiceNow to Salesforce
 <details>
 <summary>Not started yet</summary>
+Process Automation-->Flow Designer-->
+Workflow studio-->
+![alt text](image-9.png)
+Same screen with "additional properties shown" ![alt text](image-10.png)
+
+Flow pre-config:
+![alt text](image-11.png)
+
+
+...
+Salesforce spoke not available in PDI (personal dev instances)
+![alt text](image-12.png)
+
 
 Not done yet. This will prove ServiceNow can call back and update the same Case by Snow_Sys_Id__c, instead of creating a second Case. No screenshots yet.
 
