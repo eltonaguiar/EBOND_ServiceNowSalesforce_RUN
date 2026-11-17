@@ -128,6 +128,7 @@ The classic URL was:
 | `screenshots/02-principal-enabled.png` | Captured. Edit, Add arrow, `EBONDServiceNow - PDI_admin` is in Enabled. Save, then Manage Assignments. |
 | `screenshots/02-principal-access-saved.png` | Captured. Saved. Permission set `PDI admin` lists `EBONDServiceNow - PDI_admin`. Next is Manage Assignments. |
 | `screenshots/02-permset-assigned.png` | Captured. Add Assignment, user Elton Aguiar, profile System Administrator. One assignment. Expires On blank. |
+| `screenshots/02-named-credential-form.png` | Captured. New Named Credential. External Credential EBOND ServiceNow. Generate Authorization Header checked. Name must keep the underscore: `EBOND_ServiceNow`. |
 | `screenshots/02-named-credential.png` | Named Credential `EBOND_ServiceNow`. No secret in the frame. |
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
@@ -166,6 +167,8 @@ The classic URL was:
 ![Principal access saved](screenshots/02-principal-access-saved.png)
 
 ![Permission set assigned to the System Administrator user](screenshots/02-permset-assigned.png)
+
+![New Named Credential form](screenshots/02-named-credential-form.png)
 
 ![Named Credential placeholder](screenshots/02-named-credential.png)
 
