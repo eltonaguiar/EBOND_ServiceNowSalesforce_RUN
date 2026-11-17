@@ -30,12 +30,12 @@ Steps: Create a record (POST), table incident, fill body. Showcases: the request
 ![Explorer request body (2)](screenshots/from-chat/005-1794869097711-prt_1e688f4c00017uOkLBAY4Df9Y0.png)
 
 Steps: same screen as above. Showcases: another request-body view.
-![Send result](screenshots/from-chat/006-1794869301757-prt_1e68c11e70013mP8p0wA5WPLHU.png)
+![Confirm dialog](screenshots/from-chat/006-1794869301757-prt_1e68c11e70013mP8p0wA5WPLHU.png)
 
-Steps: click Send. Showcases: the result.
-![Confirm dialog](screenshots/from-chat/007-1794869301760-prt_1e68c11e7002TOLN4N2qm8IWUE.png)
+Steps: after Send, the browser asks Modifying data, confirm to continue. Showcases: the confirm dialog before the write.
+![After OK](screenshots/from-chat/007-1794869301760-prt_1e68c11e7002TOLN4N2qm8IWUE.png)
 
-Steps: after Send, the browser asks Modifying data, confirm to continue. Showcases: the confirm dialog.
+Steps: click OK on the confirm dialog. Showcases: the run after confirming.
 ![Response body](screenshots/from-chat/008-1794869301762-prt_1e68c11e7003B1TVqPvdpeodmf.png)
 
 Steps: click OK. Showcases: the response body.
