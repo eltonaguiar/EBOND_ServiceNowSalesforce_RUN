@@ -271,6 +271,8 @@ Third row: Sync Source = `salesforce`. No quotes. No capital S. Quotes would be 
 
 Assignment here is not homework. It is the earlier Flow element named Set Incident Body. That element already sent lowercase `salesforce` to ServiceNow in `u_sync_source`. This third row writes the same word onto the Case, so both records say Salesforce started this sync. Lab 3's ServiceNow rule skips the echo only when that field is exactly `salesforce`. A capital S does not match, and the echo can loop.
 
+Proof, this run: Salesforce Case `00001027`, Subject `EBOND lab 2`, wrote ServiceNow Incident `INC0010010`. Case fields came back as ServiceNow Sys Id `6b9981eec3205394310abf0d0501318a`, ServiceNow Number `INC0010010`, Sync Source `salesforce`. The Incident form shows Short description `EBOND lab 2`. The custom fields `u_ebond_sf_case_id` and `u_sync_source` are not on the default Incident form. Read them with REST API Explorer: GET `incident`, query `number=INC0010010`, fields `number,sys_id,u_ebond_sf_case_id,u_sync_source,urgency,impact`. `u_ebond_sf_case_id` must start with `500`, not `00001027`. Impact and Urgency on the form showed `3 - Low`, not the `2` the Flow sent. The id link is the proof.
+
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
 ![Save the flow dialog](screenshots/02-save-flow.png)
