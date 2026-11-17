@@ -255,7 +255,11 @@ Response, what ServiceNow sends back. Paste this on the Sample JSON Response scr
 
 ![Assignment panel, label required](screenshots/02-assignment-panel.png)
 
-Filled Assignment, ready to close. Label `Set Incident Body`. Six Equals rows: Subject, Description, urgency `2`, impact `2`, Case ID, and `salesforce`. Close the panel, then Save the flow. On the Save dialog, Flow Label `EBOND Create Incident`, Flow API Name `EBOND_Create_Incident`, Description blank. Do not open Show Advanced. Do not Activate yet.
+Filled Assignment, ready to close. Label `Set Incident Body`. Six Equals rows: Subject, Description, urgency `2`, impact `2`, Case ID, and `salesforce`. Close the panel, then Save the flow. On the Save dialog, Flow Label `EBOND Create Incident`, Flow API Name `EBOND_Create_Incident`, Description blank. Do not open Show Advanced. Saved flow is Inactive. Do not Activate yet.
+
+Next, close the Create Incident panel. Click the + under Create Incident and add Update Records, Label `Save Incident Ids`. Use the Case record that triggered the flow. Set ServiceNow Sys Id from Create Incident → 2XX → result → sys_id, ServiceNow Number from result → number, and Sync Source to `salesforce`. Save. Do not Activate yet.
+
+ELI5: `2XX` is not a ServiceNow field. It is Salesforce's name for the success reply. ServiceNow answers with a status number. `200` through `299` means it worked. A new Incident usually comes back as `201`. Salesforce puts every success answer in one box named `2XX`. The Incident id and number are inside that box, under `result`. A `400` or `500` does not go there. Those land in Default Exception. Response Code is the raw number, such as `201`. Open `2XX`, open `result`, and pick `sys_id` or `number`. Do not pick the whole box.
 
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
