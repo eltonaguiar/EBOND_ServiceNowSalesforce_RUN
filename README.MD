@@ -273,6 +273,16 @@ Assignment here is not homework. It is the earlier Flow element named Set Incide
 
 Proof, this run: Salesforce Case `00001027`, Subject `EBOND lab 2`, wrote ServiceNow Incident `INC0010010`. Case fields came back as ServiceNow Sys Id `6b9981eec3205394310abf0d0501318a`, ServiceNow Number `INC0010010`, Sync Source `salesforce`. The Incident form shows Short description `EBOND lab 2`. The custom fields `u_ebond_sf_case_id` and `u_sync_source` are not on the default Incident form. Read them with REST API Explorer: GET `incident`, query `number=INC0010010`, fields `number,sys_id,u_ebond_sf_case_id,u_sync_source,urgency,impact`. `u_ebond_sf_case_id` must start with `500`, not `00001027`. Impact and Urgency on the form showed `3 - Low`, not the `2` the Flow sent. The id link is the proof.
 
+What we learned: a new Case is enough. Set Incident Body fills the request from the triggering Case. Subject becomes `short_description`. Description becomes `description`. Urgency and impact are the text `2`. `u_ebond_sf_case_id` is the Case Id, not the Case number. `u_sync_source` is `salesforce`. EBONDCreateIncident: Create Incident is a Flow HTTP Callout action, not a Case field. The External Service `EBONDCreateIncident` was created by that wizard earlier in this lab. The call is POST. Host comes from the Named Credential. Path is `/api/now/table/incident`. Full URL `https://dev296154.service-now.com/api/now/table/incident`. Explorer `latest` uses that path. Explorer `v1` inserts `/v1/` and must not be copied into the Flow.
+
+POST creates. GET, PUT, PATCH, and DELETE are not wired. Deleting or editing one side does nothing to the other side.
+
+![Table API methods](screenshots/02-table-api-methods.png)
+
+![Explorer confirms a real write](screenshots/02-explorer-confirm.png)
+
+Warning: REST API Explorer Send on POST, PUT, PATCH, or DELETE changes the instance. The dialog says Modifying data, confirm to continue. An empty body still creates an Incident. This run made `INC0010011` and `INC0010012` that way. Caller and Short description are mandatory on the form, not on the API. Those two are explorer noise, not the Case proof.
+
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
 ![Save the flow dialog](screenshots/02-save-flow.png)
