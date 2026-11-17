@@ -111,7 +111,8 @@ The classic URL was:
 
 | File | What to capture |
 |------|-----------------|
-| `screenshots/02-setup-gear.png` | Captured. Gear icon, top right, is the way into Setup. Then Object Manager, search `case`, open API name Case. |
+| `screenshots/02-setup-gear.png` | Captured. Gear icon, top right, opens the Setup Menu. |
+| `screenshots/02-setup-menu.png` | Captured. Click Setup. Do not click Setup for current app. |
 | `screenshots/02-case-field-details.png` | Captured. Step 2 of 4, Enter the details. Field Name `Snow_Sys_Id`, length 32, Unique and External ID checked. |
 | `screenshots/02-case-layouts.png` | Captured. Step 4 of 4. All five Case layouts checked, including Case Layout and Close Case Layout. |
 | `screenshots/02-case-fields.png` | Captured. All three exist. `Snow_Sys_Id__c` is Text(32), External ID, unique, indexed. `Snow_Number__c` is Text(40). `Snow_Sync_Source__c` is Text(20). |
@@ -120,7 +121,9 @@ The classic URL was:
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
 | `screenshots/02-case-and-incident.png` | The Case, and the Incident whose `u_ebond_sf_case_id` matches the Case Id. |
 
-![Gear icon opens Setup, then Object Manager Case](screenshots/02-setup-gear.png)
+![Gear icon opens the Setup Menu](screenshots/02-setup-gear.png)
+
+![Click Setup, not Setup for current app](screenshots/02-setup-menu.png)
 
 ![Step 2 Enter the details for Snow_Sys_Id](screenshots/02-case-field-details.png)
 
