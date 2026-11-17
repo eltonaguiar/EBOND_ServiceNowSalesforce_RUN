@@ -255,7 +255,7 @@ Response, what ServiceNow sends back. Paste this on the Sample JSON Response scr
 
 ![Assignment panel, label required](screenshots/02-assignment-panel.png)
 
-Filled Assignment, ready to close. Label `Set Incident Body`. Six Equals rows: Subject, Description, urgency `2`, impact `2`, Case ID, and `salesforce`. Close the panel, then Save the flow. Do not Activate yet.
+Filled Assignment, ready to close. Label `Set Incident Body`. Six Equals rows: Subject, Description, urgency `2`, impact `2`, Case ID, and `salesforce`. Close the panel, then Save the flow as Label `EBOND Create Incident`, API Name `EBOND_Create_Incident`. Do not Activate yet.
 
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
