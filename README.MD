@@ -4,7 +4,7 @@ Code: https://github.com/eltonaguiar/EBOND_ServiceNowSalesforce
 Do not commit passwords, tokens, consumer secrets, or session cookies. Cover them before you save the image.
 - `screenshots/from-chat/` — authentic captures from the chat, numbered in the order they were sent.
 - `screenshots/redrawn-stand-ins/` — caption cards a previous pass drew to stand in for missing screenshots. Not real screens. Parked out of the narrative.
-Each screenshot lists the steps that produced it and what it showcases. Mapping is by chat order. testing123
+Each screenshot lists the steps that produced it and what it showcases. Mapping is by chat order. 
 
 ## Lab 0 — Free instances
 **Why.** Nothing else can be proven until both free accounts exist and you know the host each API will call. A wrong Salesforce host (Lightning instead of My Domain) fails every later call.
@@ -102,7 +102,9 @@ Steps: Salesforce gear (top right). Showcases: the gear.
 Steps: click Setup, not Setup for current app. Showcases: the Setup menu.
 ![Setup menu (2)](screenshots/from-chat/026-1794872325337-prt_1e6ba34cc001ic4zETcCft7HlH.png)
 
-Steps: Gear → Setup. Showcases: Setup.
+Steps: New Custom Field (ServiceNow Sys ID )
+ Showcases: Setup. Note the External ID, and Unique(case insensitive options) were selected for ServiceNow Sys ID.
+
 ![Field details step](screenshots/from-chat/027-1794875101317-prt_1e6e4907b001H6hAvh2p3urki8.png)
 
 Steps: Object Manager → Case → Fields & Relationships → New → Text, Step 2 of 4. Showcases: the details screen. Snow_Sys_Id__c failed if you typed __c. Lab updated to clearly distinguish.
@@ -114,11 +116,11 @@ Steps: Step 4 of 4, add to page layouts. Showcases: all Case layouts checked. (s
 
 Steps: Object Manager → Case → Fields & Relationships. Showcases: the three custom fields.
 
-# ServiceNow Number & ServiceNow Sys ID
+# Field 1:ServiceNow Number & 2:ServiceNow Sys ID
 ![Case object fields (2)](screenshots/from-chat/030-1794881670692-prt_1e748ce1500150aGD7t6aqcf30.png)
 
 Steps: Fields & Relationships. Showcases: the fields.
-# Sync Source
+# Field 3:Sync Source
 ![Case object fields (3)](screenshots/from-chat/031-1794881670694-prt_1e748ce15002V1rfBSQGBzB529.png)
 
 Steps: Fields & Relationships. Showcases: the fields.
@@ -130,7 +132,7 @@ Steps: Fields & Relationships. Showcases: the fields.
 Steps: App launcher → Cases. Showcases: the Cases tab.
 ![Cases tab (2)](screenshots/from-chat/034-1794889325422-prt_1e7bd9b62001xFaV5mjdn7i7nt.png)
 
-Steps: App launcher → Cases. Showcases: Cases.
+Steps: App launcher → Cases. Showcases: Cases.(Cases List Views)
 ![Cases tab (3)](screenshots/from-chat/035-1794889325424-prt_1e7bd9b62002ML72UEqeKDknaY.png)
 
 Showcases: in Salesforce Case, we have the fields we added such as ServiceNow Sys Id, ServiceNow Number, Sync Source. (we added to all "page layouts" for this example)
@@ -139,20 +141,21 @@ Showcases: in Salesforce Case, we have the fields we added such as ServiceNow Sy
 Steps: open a Case. Showcases: the three new fields highlighted.
 ![Setup screen](screenshots/from-chat/037-1794889427195-prt_1e7bf28f7001ee7NqMH9LGWkdy.png)
 
-Steps: Gear → Setup. Showcases: Setup. Note the External ID, and Unique(case insensitive options) were selected for ServiceNow Sys ID.
-### External Credential (created first)
+Steps: Gear → Setup. Showcases: 
+### External Credential (created first)-->2nd tab
 ![Named Credentials empty](screenshots/from-chat/038-1794889460242-prt_1e7bfaa0f001LnEWTlAxHCKcjD.png)
 
-Steps: Setup → Quick Find named credentials → External Credentials tab → New. Showcases: the empty list.
+Steps: Setup → Quick Find named credentials → External Credentials tab → New. Showcases: the empty list. (see above screenshot)
 ![Create Principal form](screenshots/from-chat/039-1794889603915-prt_1e7c1db48001Q8wJQCKNa3NpVs.png)
 
-Steps: save the External Credential, then Principals → New. Showcases: the create principal form.
+Steps: save the External Credential, then Principals → New. 
+Authentication: to be switched to "Basic Authentication"
 ![Label vs Name](screenshots/from-chat/040-1794889664424-prt_1e7c2c7a6001DLrmFeXANid9gx.png)
 
 Steps: the External Credential name field. Showcases: name must have no space.
 ![Principal sequence](screenshots/from-chat/041-1794889749403-prt_1e7c41396001AOZcsTtqBK1VvI.png)
 
-Steps: principal form. Showcases: sequence number.
+Steps: principal form. Showcases: sequence number. Showcases: the create principal form.
 ![Identity type](screenshots/from-chat/042-1794889749404-prt_1e7c41396002Gemhs53WyG1UbT.png)
 
 Steps: principal form. Showcases: Identity Type Named Principal.
