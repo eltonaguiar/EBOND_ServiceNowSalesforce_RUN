@@ -267,7 +267,9 @@ The left side of each row is a Case field you are filling in. The right side is 
 
 Second row: ServiceNow Number (`Snow_Number__c`) = `{!EBONDCreateIncident_Create_Incident.2XX.result.z0number}`. The pill you pick is result then number. `z0number` is still `number`. `number` is a reserved word, so the generated class renames it. Same field. Do not type `z0number`. That value is the Incident number, such as `INC0010002`.
 
-Third row: Sync Source = `salesforce`. No quotes. No capital S. Quotes would be stored as part of the value.
+Third row: Sync Source = `salesforce`. No quotes. No capital S. Quotes would be stored as part of the value. It is case sensitive. `Salesforce` is not the same word.
+
+Assignment here is not homework. It is the earlier Flow element named Set Incident Body. That element already sent lowercase `salesforce` to ServiceNow in `u_sync_source`. This third row writes the same word onto the Case, so both records say Salesforce started this sync. Lab 3's ServiceNow rule skips the echo only when that field is exactly `salesforce`. A capital S does not match, and the echo can loop.
 
 ![Assignment filled](screenshots/02-assignment-filled.png)
 
