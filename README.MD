@@ -139,6 +139,7 @@ The classic URL was:
 | `screenshots/02-http-callout-path-filled.png` | Captured. Label, POST, and `/api/now/table/incident` filled. No query key. Next. |
 | `screenshots/02-http-callout-json.png` | Captured. Sample JSON Request. Paste the sample, Review, then Next. |
 | `screenshots/02-http-callout-json-pasted.png` | Captured. Sample pasted. Red until Review. Then Next. |
+| `screenshots/02-http-callout-reviewed.png` | Captured. Review succeeded. Six fields, all String. Next click is Next. |
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
 | `screenshots/02-case-and-incident.png` | The Case, and the Incident whose `u_ebond_sf_case_id` matches the Case Id. |
@@ -198,6 +199,8 @@ The classic URL was:
 ![Sample JSON Request](screenshots/02-http-callout-json.png)
 
 ![Sample pasted, click Review](screenshots/02-http-callout-json-pasted.png)
+
+![Review succeeded, six String fields](screenshots/02-http-callout-reviewed.png)
 
 ![Case 00001026 created, ServiceNow fields empty](screenshots/02-case-created.png)
 
