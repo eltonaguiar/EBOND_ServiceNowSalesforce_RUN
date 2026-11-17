@@ -159,7 +159,7 @@ Request, what Salesforce sends:
 }
 ```
 
-Response, what ServiceNow sends back. Paste this on the Sample JSON Response screen, Review, then Save:
+Response, what ServiceNow sends back. Paste this on the Sample JSON Response screen, Review, then Save. `number` must stay String. `INC0010002` is text, not an integer.
 
 ```json
 {
