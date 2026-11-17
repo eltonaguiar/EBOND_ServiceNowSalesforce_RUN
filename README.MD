@@ -144,6 +144,7 @@ The classic URL was:
 | `screenshots/02-example-response-selected.png` | Captured. Use Example Response is selected. Next. |
 | `screenshots/02-http-callout-response-json.png` | Captured. Sample JSON Response, empty. Do not paste the request JSON here. |
 | `screenshots/02-flow-action-created.png` | Captured. Action created on Run Asynchronously. Next: Label `Create Incident`, API Name `Create_Incident`, then map the six body fields. |
+| `screenshots/02-flow-action-body.png` | Captured. Label is empty and red. Body is one key. Use New Resource. Transaction Control stays Let the flow decide. |
 
 The request sample and the response sample are different on purpose.
 
@@ -239,6 +240,8 @@ Response, what ServiceNow sends back. Paste this on the Sample JSON Response scr
 ![Sample JSON Response, do not paste the request](screenshots/02-http-callout-response-json.png)
 
 ![Action created on the async path](screenshots/02-flow-action-created.png)
+
+![Action panel, body is one value](screenshots/02-flow-action-body.png)
 
 ![Case 00001026 created, ServiceNow fields empty](screenshots/02-case-created.png)
 
