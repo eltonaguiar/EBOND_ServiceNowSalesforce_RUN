@@ -164,7 +164,8 @@ Steps: principal form. Showcases: Identity Type Named Principal.
 Steps: principal form. Showcases: the fields.
 ![Manage Assignments hunt](screenshots/from-chat/044-1794889832919-prt_1e7c559d5001gJC0bSrS4OluKb.png)
 
-Steps: look for Manage Assignments on the principal. Showcases: it is not there.
+Steps: look for Manage Assignments on the principal. Showcases: it is not there. (under the Permission Set section.. screenshot below is at a later stage once it was linked. its actually under this section "Steps: Manage Assignments → Add Assignment. Showcases: the assignment screen.")
+
 ![Manage Assignments hunt (2)](screenshots/from-chat/045-1794889858858-prt_1e7c5bf24001aBG4WUlVP899Wc.png)
 
 Steps: as above. Showcases: it is not there.
@@ -201,7 +202,7 @@ Steps: as above. Showcases: enabled.
 Steps: Save. Showcases: principal access saved.
 ![Manage Assignments](screenshots/from-chat/056-1794890458606-prt_1e7cee5e300126O55CHpuQGIzk.png)
 
-Steps: Manage Assignments → Add Assignment. Showcases: the assignment screen.
+# Steps: Manage Assignments → Add Assignment. Showcases: the assignment screen.
 ![Add Assignment](screenshots/from-chat/057-1794890458607-prt_1e7cee5e3002djRGVAatt8eBh6.png)
 
 Steps: Add Assignment. Showcases: choose the user.
@@ -302,10 +303,11 @@ Steps: Sample JSON Response → Review. Showcases: number shows as String. That 
 Steps: click Save. Showcases: the response screen.
 ![Save (2)](screenshots/from-chat/089-1794891989530-prt_1e7e6420f001qh5S0QmKGozjiQ.png)
 
-Steps: Save. Showcases: save.
+Steps: Save. Showcases: save. 
 ![Action created](screenshots/from-chat/090-1794892077853-prt_1e7e79b11001HQuAUORYbrWI7L.png)
 
-Steps: Save. Showcases: the action on Run Asynchronously.
+Steps: Save. Showcases: the action on Run Asynchronously. Note the URL 
+http://<devXXXX.service-now.com/api/now/table/incident (the creation URL which we saw earlier under REST Explorer with POST )
 ![Action created (2)](screenshots/from-chat/091-1794892077855-prt_1e7e79b1100206NfyBWm4Cyh1x.png)
 
 Steps: as above. Showcases: action created.
