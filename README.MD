@@ -142,6 +142,33 @@ The classic URL was:
 | `screenshots/02-http-callout-reviewed.png` | Captured. Review succeeded. Six fields, all String. Next click is Next. |
 | `screenshots/02-http-callout-response-method.png` | Captured. Pick Use Example Response, not Connect for Schema. Then Next. |
 | `screenshots/02-example-response-selected.png` | Captured. Use Example Response is selected. Next. |
+| `screenshots/02-http-callout-response-json.png` | Captured. Sample JSON Response, empty. Do not paste the request JSON here. |
+
+The request sample and the response sample are different on purpose.
+
+Request, what Salesforce sends:
+
+```json
+{
+  "short_description": "Lab 2 from Flow",
+  "description": "Created from a Salesforce Case",
+  "urgency": "2",
+  "impact": "2",
+  "u_ebond_sf_case_id": "500000000000000AAA",
+  "u_sync_source": "salesforce"
+}
+```
+
+Response, what ServiceNow sends back. Paste this on the Sample JSON Response screen, Review, then Save:
+
+```json
+{
+  "result": {
+    "sys_id": "5dba2bdac3e8df54310abf0d050131a5",
+    "number": "INC0010002"
+  }
+}
+```
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
 | `screenshots/02-case-and-incident.png` | The Case, and the Incident whose `u_ebond_sf_case_id` matches the Case Id. |
@@ -207,6 +234,8 @@ The classic URL was:
 ![Use Example Response, not Connect for Schema](screenshots/02-http-callout-response-method.png)
 
 ![Use Example Response selected](screenshots/02-example-response-selected.png)
+
+![Sample JSON Response, do not paste the request](screenshots/02-http-callout-response-json.png)
 
 ![Case 00001026 created, ServiceNow fields empty](screenshots/02-case-created.png)
 
