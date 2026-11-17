@@ -116,6 +116,7 @@ The classic URL was:
 | `screenshots/02-case-field-details.png` | Captured. Step 2 of 4, Enter the details. Field Name `Snow_Sys_Id`, length 32, Unique and External ID checked. |
 | `screenshots/02-case-layouts.png` | Captured. Step 4 of 4. All five Case layouts checked, including Case Layout and Close Case Layout. |
 | `screenshots/02-case-fields.png` | Captured. All three exist. `Snow_Sys_Id__c` is Text(32), External ID, unique, indexed. `Snow_Number__c` is Text(40). `Snow_Sync_Source__c` is Text(20). |
+| `screenshots/02-named-credential-empty.png` | Captured. Quick Find `named credentials`. Empty list. Next click is New. |
 | `screenshots/02-named-credential.png` | Named Credential `EBOND_ServiceNow`. No secret in the frame. |
 | `screenshots/02-case-created.png` | Captured. Case `00001026`, Priority Medium, Status New. The three ServiceNow fields are on the page and empty until the callout runs. |
 | `screenshots/02-case-fields-on-page.png` | Captured. The three fields are circled on the Case page: ServiceNow Sys Id, ServiceNow Number, Sync Source. Values empty. Opened 2026-11-16, 11:19 p.m. |
@@ -130,6 +131,8 @@ The classic URL was:
 ![Step 4 all Case layouts checked](screenshots/02-case-layouts.png)
 
 ![Case fields placeholder](screenshots/02-case-fields.png)
+
+![Named Credentials empty list, click New](screenshots/02-named-credential-empty.png)
 
 ![Named Credential placeholder](screenshots/02-named-credential.png)
 
