@@ -706,6 +706,13 @@ defaults on Authentication Tab: ![alt text](image-57.png)
 
 ![alt text](image-56.png)
 ![alt text](image-55.png)
+
+<h1>Patch_case HTTP Method PATCH: Fixed Screenshot</h1>
+Needed to add Content-Type: application/json (2 fields to populate )
+Endpoint URL:https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow
+![alt text](image-77.png)
+
+
 <table border="1">
 Why this endpoint works: the URL uses Salesforce's external-ID update form (/sobjects/Case/{fieldName}/{fieldValue}). This works only because Snow_Sys_Id__c was marked External ID (and Unique) on the Case in Lab 2. If it were a normal field, this URL would not resolve — you would instead have to use the Case's Salesforce record Id (/sobjects/Case/{id}).
 </table>
