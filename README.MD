@@ -1194,13 +1194,279 @@ Not done yet. This will show which system owns which field, and that one save do
 
 </details>
 
-## Lab 5 — Troubleshooting
-<details>
-<summary>Not started yet</summary>
+## Lab 5 — ServiceNow ITOM & Platform Operations
 
-Not done yet. A clean run does not need a shot. No screenshots yet.
+**Why.** ServiceNow ITSM is only half the story. ITOM (IT Operations Management) — Discovery, CMDB, Service Mapping, Event Management, and MID Server orchestration — turns the platform into a live configuration model of the business. This lab covers end-to-end ITOM design, discovery debugging, cloud discovery, relationship modeling, CMDB gap filling, upgrade governance, and instance sizing.
 
-</details>
+---
+
+### 5.1 ITOM End-to-End Design (Real-World)
+
+A production ITOM implementation is layered, not a single switch:
+
+| Layer | Component | Purpose |
+|-------|-----------|---------|
+| **Discovery** | MID Server, Patterns, Schedules, Probes, Sensors | Find CIs and relationships across on-prem, cloud, mainframe |
+| **CMDB** | CI classes, Relationships, Health, Data Policies | Single source of truth for configuration items |
+| **Service Mapping** | Patterns, Application Services, Business Services | Map CIs → services for impact analysis |
+| **Event Management** | Event Rules, Noise Reduction, Alerts, AIOps | Turn raw monitoring events into actionable alerts |
+| **ITOM Health** | Health Rules, Dashboards, KPIs | Measure CMDB completeness and discovery coverage |
+| **MID Server** | MID Servers, load balancing, parameters | The agent that executes discovery on target networks |
+
+**Recommended topology (minimum viable):**
+- 1 MID Server per network zone / data center
+- 1 MID Server per cloud region for cloud discovery
+- MID Servers behind a load balancer if more than ~50 concurrent discoveries
+- Discovery schedules staggered — never all firing at once
+- Consider a dedicated MID Server for Service Mapping (pattern-based) vs classic Discovery
+
+---
+
+### 5.2 MID Server Configuration & Tuning
+
+**Critical MID Server parameters** (config.xml or MID Server properties):
+
+| Parameter | Purpose | Recommended starting value |
+|-----------|---------|----------------------------|
+| `mid.server.max_concurrent_jobs` | Max concurrent discovery jobs | 10–20 per MID Server |
+| `mid.server.max_threads` | Max threads per job | 5–10 |
+| `mid.server.timeout` | Job timeout in minutes | 60–120 |
+| `mid.discover.max_concurrent_devices` | Max devices per discovery | 50–100 |
+| `mid.discovery.threads` | Discovery worker threads | 5 |
+| `mid.log.level` | Log verbosity | `info` normally, `debug` while troubleshooting |
+
+**Best practices:**
+- Run the MID Server under a dedicated service account (not SYSTEM/root)
+- One MID Server per subnet/network zone to reduce network hops
+- Use MID Server clustering for high availability (multiple MID Servers, one cluster)
+- Point the MID Server at the ServiceNow instance hostname, not an IP
+- Let the MID Server auto-upgrade from the instance (keep versions in sync)
+- Monitor MID Server queue depth — a growing queue means too few threads or too many jobs
+
+**Load balancing setup:**
+- Discovery load is spread across MID Servers via **capabilities**
+- Assign each MID Server capability tags (e.g., `discovery`, `servicemapping`, `cloud`) and target schedules at the matching capability
+- For very large environments, use a hardware/software load balancer in front of MID Servers only if you're aggregating inbound connections; discovery itself is outbound from MID Server to targets, so per-zone MID Servers matter more than LB
+- Verify with: MID Server → Capabilities and MID Server → Status dashboards
+
+---
+
+### 5.3 Discovery Debugging — End-to-End
+
+When a Discovery scan returns no data or incomplete CIs, debug in this order:
+
+**Step 1 — MID Server health**
+```
+MID Server → Status  → must be "Up"
+MID Server → Version → must match the instance version
+```
+
+**Step 2 — Discovery Schedule**
+- Schedule is **Active**
+- Target includes the intended IP range
+- Assigned MID Server has network reachability to the targets
+
+**Step 3 — Run a single-CI scan, not a full discovery**
+- Use **Debug** mode on the Discovery Schedule
+- Check the Discovery Log table (`discovery_log` / `em_discover_log`)
+- Look for: `Connection refused`, `Timeout`, `Authentication failed`, `Pattern not found`
+
+**Step 4 — MID Server logs**
+Location: `<MID_HOME>/agent/logs/`
+- `agent.log` — main log
+- `agent.log.0`, `agent.log.1` — rotated
+- Look for: `Connection timed out`, `Authentication failed`, `Pattern execution error`
+
+**Step 5 — ServiceNow Discovery Status**
+- Discovery → Status → History → find the run, open it
+- Check the "Errors" and "Warnings" tabs for each phase (Shazzam, Horizontal Discovery, Vertical Discovery)
+
+**Step 6 — Verify credentials manually**
+- From the MID Server host, test the protocol directly:
+  - SSH: `ssh user@target_ip`
+  - WinRM: `Test-WSMan target_ip`
+  - SNMP: `snmpwalk -v2c -c community target_ip .1.3.6.1.2.1.1`
+
+**Step 7 — Check the pattern**
+- Pattern must be **Active**
+- Pattern must include the target CI class
+- Run the pattern in **Debug** mode from Pattern Designer to see where classification fails
+
+**Step 8 — CMDB write permissions**
+- Discovery user needs write access to the CI tables
+- Check ACLs on `cmdb_ci` and derived tables
+
+---
+
+### 5.4 Cloud Discovery
+
+**Cloud providers supported:** AWS, Azure, GCP, Oracle Cloud, IBM Cloud.
+
+**Configuration:**
+1. Create the Cloud Account: **System Cloud → Cloud Accounts**
+2. Provide credentials: Access/Secret Key (AWS), Service Principal (Azure), Service Account JSON (GCP)
+3. Create a Cloud Discovery Schedule
+4. Select regions to scan
+5. Select resource types: compute (EC2/VM), storage (S3/Blob), databases (RDS), load balancers, VPCs
+
+**Cloud-specific considerations:**
+- Prefer IAM roles / workload identity over long-lived keys
+- Scan only active regions to reduce API cost and throttle risk
+- Tag resources for cost allocation and CMDB grouping
+- Cloud discovery is **read-only** — it does not modify cloud resources
+
+**Common cloud discovery issues:**
+- API rate limiting / throttling (AWS especially)
+- Missing IAM permissions (`ec2:DescribeInstances`, `tag:GetResources`, etc.)
+- Private subnets not reachable from the MID Server
+- Security groups or NACLs blocking the MID Server
+- Wrong region selected in the schedule
+
+---
+
+### 5.5 Service Relationships — How CIs Connect
+
+**Ways to establish relationships:**
+
+| Method | When to use |
+|--------|-------------|
+| **OOB CMDB relationships** | Standard CI types — Server→OS, Server→Cluster, Service→Server |
+| **CI Relationship Rules** | Automated relationship creation based on rules matching CI pairs |
+| **Service Mapping** | Application service discovery → CI relationships from real traffic/config |
+| **Manual relationship creation** | Ad-hoc, one-off, or gaps not covered by automation |
+| **Integration / CMDB federation** | External CMDB sync |
+
+**Is it common practice to use out-of-box connection types?**
+Yes. Always start with OOB relationship types and OOB connection types — they're maintained by ServiceNow and understood by OOB reports/health checks. Only create custom relationship types when OOB genuinely can't express the dependency, and document them in the CMDB governance model.
+
+**Store apps to look into for relationships:**
+- **CMDB Health** — flags inconsistent relationships
+- **Service Mapping** — pattern-based application service discovery
+- **Dependency Views** — visualize upstream/downstream dependencies
+
+---
+
+### 5.6 CMDB Class Gaps — Store Apps to Considering
+
+When OOB CI classes don't cover your estate, the ServiceNow Store is the usual answer. Search terms and example app categories:
+
+| Gap | Store search term | Typical apps |
+|-----|-------------------|--------------|
+| Network devices | "network CMDB", "network device" | Network CMDB, enhanced network discovery |
+| Mainframe / z/OS | "mainframe", "z/OS" | Mainframe CMDB, z/OS discovery packs |
+| Storage arrays / SAN | "storage array", "SAN" | Storage CMDB, SAN discovery |
+| Kubernetes | "Kubernetes", "k8s" | Kubernetes Discovery, container CMDB |
+| Containers | "container", "Docker" | Container Discovery |
+| Multi-cloud resources | "multi-cloud CMDB", "cloud CMDB" | Cloud CMDB extensions |
+| SaaS apps | "SaaS CMDB" | SaaS CMDB, SaaS discovery |
+
+**Evaluation criteria before installing a store app:**
+- ServiceNow certified (built on the same platform release family)
+- Active development / support and reviews
+- Pricing model (per-CI vs flat fee)
+- Whether it extends OOB classes or forks them (extend is better)
+- Integration with existing CMDB health rules and Relationship Rules
+
+---
+
+### 5.7 Upgrade Strategy — When and in What Order
+
+**When to upgrade:**
+- New CI classes or platform features you need (CSDM updates, new ITOM capabilities)
+- Security vulnerabilities patched in newer releases
+- Performance problems fixed upstream
+- Vendor support windows ending on your current release
+
+**Upgrade order (always this way):**
+1. **Dev instance first** — test all customizations, integrations, scripts, and flows
+2. **QA/UAT instance** — test with realistic data volumes and user acceptance
+3. **Production** — schedule in a maintenance window with a rollback plan ready
+
+**Never upgrade production first.** Dev is the canary. If Dev breaks, you lose nothing.
+
+**When should you already be on the latest release?**
+- Only after your own regression passes in Dev and UAT — "latest" is not a goal by itself
+- Keep within one major release of current if you want support and predictable upgrades
+- Plan at least one upgrade per year to stay in a supportable window
+
+**Minimum instances a customer should have:**
+
+| Instance type | Purpose | Minimum |
+|---------------|---------|---------|
+| Dev | Development, integration testing | 1 |
+| QA / UAT | User acceptance, volume testing | 1 |
+| Prod | Production | 1 |
+| **Total minimum** | | **3** |
+
+**Recommended:** Dev + QA/UAT + Prod + a Sandbox (training/experiments) = 4+.
+
+---
+
+### 5.8 Debugging Discovery — Common Problems & Fixes
+
+| Symptom | Likely cause | Fix |
+|---------|--------------|-----|
+| No CIs discovered | Wrong credentials | Test the protocol manually from the MID host |
+| Partial CIs | Missing read permissions | Grant full read to the discovery account |
+| Duplicate CIs | No coalesce rules | Configure coalesce on serial, MAC, UUID |
+| Relationships missing | No relationship rules | Create CI Relationship Rules or run Service Mapping |
+| Discovery too slow | Too many concurrent jobs | Lower `max_concurrent_jobs`, stagger schedules |
+| Cloud discovery empty | Wrong credentials/region | Verify cloud account and region selection |
+| MID Server offline | Service stopped, firewall | Check MID service and firewall rules |
+| Slow scanning of large subnets | One huge range | Split into smaller ranges across MID Servers |
+
+---
+
+### 5.9 Integration User Best Practices
+
+Never use your personal admin account for integrations.
+
+| Step | Action |
+|------|--------|
+| 1 | Create a dedicated user, e.g. `integration.snow` |
+| 2 | Grant a least-privilege role (custom role if possible) |
+| 3 | Create the OAuth client in ServiceNow (Application Registry → OAuth Providers) |
+| 4 | Store the client secret in encrypted storage — not plain text |
+| 5 | Rotate credentials on a schedule and revoke the old ones |
+
+**Never commit credentials to GitHub.** Use environment variables, cloud secret managers, or ServiceNow encrypted fields.
+
+---
+
+### 5.10 Credential Inventory & Store Apps
+
+Maintain a secure credential inventory for every integration. Never commit these to a repo — reference the secure store, not the value:
+
+| System | Credential type | Storage location | Used for |
+|--------|----------------|------------------|----------|
+| Salesforce | OAuth client ID/secret | Encrypted store | Salesforce → ServiceNow |
+| AWS | Access key / secret | AWS Secrets Manager | Cloud discovery |
+| Azure | Service principal | Azure Key Vault | Azure discovery |
+| GCP | Service account JSON | GCP Secret Manager | GCP discovery |
+| ServiceNow | OAuth client ID/secret | ServiceNow encrypted storage | Outbound integrations |
+
+For further research, use store apps and vendor docs with these API credential sources kept in an encrypted vault (env vars, `dbpasses.txt` locally, cloud secret managers in production). Never paste secrets into a ticket, a chat, or a commit.
+
+---
+
+### 5.11 Lab 5 Completion Checklist
+
+- [ ] MID Server installed and configured in each network zone
+- [ ] Discovery schedule created and running successfully
+- [ ] CMDB populated with CIs from at least one discovery
+- [ ] Service Mapping configured for at least one application service
+- [ ] Cloud discovery configured for at least one cloud provider
+- [ ] CMDB relationships established (OOB or custom, documented)
+- [ ] Upgrade strategy documented (Dev → QA/UAT → Prod)
+- [ ] Minimum 3 instances (Dev, QA/UAT, Prod) confirmed
+- [ ] Integration user created with least-privilege access
+- [ ] Credentials stored securely (not in GitHub)
+- [ ] Discovery debugging runbook created
+- [ ] CMDB gap analysis completed (store apps identified if needed)
+
+**Lab 5 is complete when:** you can discover a server in your network, see it in CMDB, see it mapped to a business service, and confirm that changes flow both ways between ServiceNow and your cloud/SaaS systems.
+
+---
 
 ## Appendix — redrawn stand-ins (not real screens)
 64 files in `screenshots/redrawn-stand-ins/`. A previous pass drew these caption cards to stand in for missing screenshots. They are not Salesforce or ServiceNow screens and must not be used as proof.
