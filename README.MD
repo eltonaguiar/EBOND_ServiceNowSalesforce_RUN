@@ -576,13 +576,48 @@ External Client App Manager starting view-->New External Client App
 Checking Enable OAuth, under API (Enable OAuth Settings). 
 Fill in External Client App Name e.g. ServiceNow Lab Integration and API Name is auto-generated but can be modified. Distribution State:Local(kept default)
 
+
+External Client App Manager
+Basic Information and under API(Enable OAuth Settings) Check the checkbox "Enable OAuth"
+![alt text](image-19.png)
+Added OAuth Scope-->api role for example
+![alt text](image-18.png)
+Lab auth consumer key and consumer secret:
+![alt text](image-20.png) 
+
+Policies-->Edit button
+![alt text](image-21.png)
+
+Plugin Policies-->Set value to Admin approved users are pre-authorized, whe prompted click OK
+![alt text](image-22.png)
+Enable Client Credentials Flow--> Run as Username(your username)
+
+![alt text](image-23.png)
+Actual Username can be retrieved from your profile<br />
+![alt text](image-24.png)
+Click view profile options-->Settings-> Username field
+Then copy and paste email field  into the "Run As (username) under "OAuth Flows and External Client App Enhancements" --> Enable Client Credentials Flow
+![alt text](image-25.png)
+
+
+
+------------------------
 Not done yet. This will prove ServiceNow can call back and update the same Case by Snow_Sys_Id__c, instead of creating a second Case. No screenshots yet.
+
+
+
+
 
 </details>
 
 ## Lab 4 — Ownership and loops
 <details>
+
+
+
+
 <summary>Not started yet</summary>
+-------------------------------------
 
 Not done yet. This will show which system owns which field, and that one save does not bounce. No screenshots yet.
 
