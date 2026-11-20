@@ -647,6 +647,7 @@ Connect to a third party OAuth Provider - Outbound
 
 <h2>Form Fill Helpers</h2>
 ![alt text](image-42.png)
+![alt text](image-44.png)
 
 <h1>Filled Form</h1>
 
