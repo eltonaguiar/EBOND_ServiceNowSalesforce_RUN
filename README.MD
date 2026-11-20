@@ -612,10 +612,21 @@ Without this header, the PATCH call returns `400` with error `INVALID_CONTENT_TY
 
 ---
 
-### HTTP Query Parameters vs Body (old vs new)
+### HTTP Headers required
 
-**Old approach (did NOT work):**
-The request body was used to send fields:
+Both approaches require the **Content-Type** header on the HTTP method:
+
+| Header Name | Value | Why |
+|-------------|-------|-----|
+| `Content-Type` | `application/json` | Tells Salesforce the request body is JSON; without this, Salesforce returns `400 INVALID_CONTENT_TYPE` |
+
+---
+
+### Two ways to structure the PATCH call
+
+**Approach 1: All fields in the body (works)**
+
+The request body contains all fields to update. The URL contains the External ID value:
 ```json
 {
   "Subject": "${subject}",
@@ -624,15 +635,20 @@ The request body was used to send fields:
   "Snow_Sync_Source__c": "servicenow"
 }
 ```
-This failed because Salesforce needs the data in the **request body** for PATCH, but the URL-based external ID lookup happens in the URL path itself.
+URL: `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow`
 
-**New approach (works):**
-- **URL:** `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow`
-  - The `servicenow` at the end is the value of `Snow_Sys_Id__c` that Salesforce matches against
-- **HTTP Header:** `Content-Type: application/json`
-- **Body:** `{"Subject": "Updated from ServiceNow"}` (only fields being changed)
+**Approach 2: Only changed fields in the body (also works)**
 
-The key insight: **the external ID value goes in the URL path**, not in the request body. The request body only contains the fields you want to update.
+```json
+{
+  "Subject": "Updated from ServiceNow"
+}
+```
+Same URL: `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow`
+
+**Key insight:** Both work. The URL path `/sobjects/Case/Snow_Sys_Id__c/{value}` tells Salesforce which Case to update via the External ID match. The request body contains whatever fields you want to change. Required header: `Content-Type: application/json`.
+
+---
 
 ---
 
