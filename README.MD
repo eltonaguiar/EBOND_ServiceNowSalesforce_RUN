@@ -551,13 +551,44 @@ Based on that we are using more of a code approach.
 See the lab notes for details:
 <a href="https://eltonaguiar.github.io/EBOND_ServiceNowSalesforce/labs/03-snow-to-salesforce/">Lab Notes </a>
 
+## 4. Async business rule — Testing the REST Method
 
-<details>
-<summary>Not started yet</summary>
+| Step | Detail |
+|------|--------|
+| **Tested method** | Scripted REST API PATCH — ServiceNow → Salesforce |
+| **Tested URL** | `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow` |
+| **Result** | HTTP 201 — Case created/updated successfully in Salesforce |
+| **OAuth** | Client Credentials flow, service account auth |
+
+### How we built the test URL
+
+The URL follows Salesforce's external-ID upsert pattern:
+
+```
+https://{instance}.my.salesforce.com/services/data/{version}/sobjects/{object}/{externalIdField}/{externalIdValue}
+```
+
+| Part | Value | Why |
+|------|-------|-----|
+| `{instance}` | `orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com` | Your Salesforce My Domain (must include `.develop.`) |
+| `{version}` | `latest` | Always use latest API version |
+| `{object}` | `Case` | Salesforce object being updated |
+| `{externalIdField}` | `Snow_Sys_Id__c` | Custom field marked as External ID in Lab 2 |
+| `{externalIdValue}` | `servicenow` | The actual value to match/update |
+
+**How we came up with this:**
+1. We confirmed `Snow_Sys_Id__c` is marked as **External ID** on the Case object in Salesforce (Lab 2)
+2. External ID fields allow upsert via `/sobjects/Case/{fieldName}/{fieldValue}` 
+3. The `servicenow` value is a placeholder — replace with your actual `Snow_Sys_Id__c` value
+4. We verified with the OAuth token flow first, then tested the PATCH call
+
+---
+
+
+
 Process Automation-->Flow Designer-->
 Workflow studio-->
 ![alt text](image-9.png)
-Same screen with "additional properties shown" ![alt text](image-10.png)
 
 Setup(Gear Icon top right) ![alt text](image-14.png)-->
 External Client in Search-->External App Manager
@@ -884,7 +915,6 @@ Not done yet. This will prove ServiceNow can call back and update the same Case 
 
 
 
-</details>
 
 ## Lab 4 — Ownership and loops
 <details>
