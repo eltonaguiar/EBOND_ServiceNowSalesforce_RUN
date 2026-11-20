@@ -581,6 +581,61 @@ https://{instance}.my.salesforce.com/services/data/{version}/sobjects/{object}/{
 2. External ID fields allow upsert via `/sobjects/Case/{fieldName}/{fieldValue}` 
 3. The `servicenow` value is a placeholder — replace with your actual `Snow_Sys_Id__c` value
 4. We verified with the OAuth token flow first, then tested the PATCH call
+---
+
+### What `Snow_Sys_Id__c` does
+
+`Snow_Sys_Id__c` is a custom field on the Salesforce **Case** object that was marked as **External ID** (and Unique) in Lab 2. It serves as the linkage key between ServiceNow and Salesforce:
+
+| Purpose | Detail |
+|---------|--------|
+| **External ID** | Allows Salesforce records to be found/updated by this field instead of the Salesforce internal record `Id` |
+| **Unique** | Ensures only one Case matches each `Snow_Sys_Id__c` value |
+| **Linkage** | When a ServiceNow record is created/updated, its `sys_id` (or another identifier) is stored here so both systems can reference the same record |
+
+This is why the REST URL uses:
+`/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow`
+
+Salesforce looks up the Case where `Snow_Sys_Id__c = 'servicenow'` and updates (or creates) it.
+
+---
+
+### HTTP Headers added to `patch_case_test`
+
+The `patch_case_test` HTTP method in ServiceNow REST Message now includes an **HTTP Header**:
+
+| Header Name | Value | Why |
+|-------------|-------|-----|
+| `Content-Type` | `application/json` | Tells Salesforce the request body is JSON; without this, Salesforce returns `INVALID_CONTENT_TYPE` |
+
+Without this header, the PATCH call returns `400` with error `INVALID_CONTENT_TYPE`.
+
+---
+
+### HTTP Query Parameters vs Body (old vs new)
+
+**Old approach (did NOT work):**
+The request body was used to send fields:
+```json
+{
+  "Subject": "${subject}",
+  "Description": "${description}",
+  "Snow_Number__c": "${number}",
+  "Snow_Sync_Source__c": "servicenow"
+}
+```
+This failed because Salesforce needs the data in the **request body** for PATCH, but the URL-based external ID lookup happens in the URL path itself.
+
+**New approach (works):**
+- **URL:** `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow`
+  - The `servicenow` at the end is the value of `Snow_Sys_Id__c` that Salesforce matches against
+- **HTTP Header:** `Content-Type: application/json`
+- **Body:** `{"Subject": "Updated from ServiceNow"}` (only fields being changed)
+
+The key insight: **the external ID value goes in the URL path**, not in the request body. The request body only contains the fields you want to update.
+
+---
+
 
 ---
 
