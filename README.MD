@@ -710,6 +710,23 @@ defaults on Authentication Tab: ![alt text](image-57.png)
 Why this endpoint works: the URL uses Salesforce's external-ID update form (/sobjects/Case/{fieldName}/{fieldValue}). This works only because Snow_Sys_Id__c was marked External ID (and Unique) on the Case in Lab 2. If it were a normal field, this URL would not resolve — you would instead have to use the Case's Salesforce record Id (/sobjects/Case/{id}).
 </table>
 
+patch_case body:
+<table border="1">
+<tr>
+<td>
+{
+  "Subject": "${subject}",
+  "Description": "${description}",
+  "Snow_Number__c": "${number}",
+  "Snow_Sync_Source__c": "servicenow"
+}
+</td>
+<td>
+Endpoint:https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/${snow_sys_id}
+</td>
+</tr>
+
+</table>
 
 <!-->
 | Field | Value | |-------|-------| | Name | `patch_case` | | HTTP method | PATCH | | Endpoint | `https://YOUR_DOMAIN.my.salesforce.com/services/data/v68.0/sobjects/Case/Snow_Sys_Id__c/${snow_sys_id}` |
