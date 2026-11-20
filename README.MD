@@ -600,6 +600,126 @@ Then copy and paste email field  into the "Run As (username) under "OAuth Flows 
 ![alt text](image-25.png)
 
 
+For brevity, used my own admin user just to get a proof of concept of the integration itself, but normally an admin user would be setup as follows. See section <strong>Integration User Creation</strong> below. 
+
+In Salesforce Sites and Domains-->Domains , Where Current Domain Configuration Options-->My Domain
+orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com
+![alt text](image-27.png)
+
+Back in ServiceNow
+
+How to get there: in your ServiceNow instance, open the left navigation menu (the "All" menu, top-left) and go to System Web Services → Outbound → REST Message, then click New.
+
+<strong>Step 1 — define the REST Message (ServiceNow)</strong>
+ServiceNow — create the REST Message record:
+
+<strong>
+orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/v68.0
+</strong>
+
+Settings Up the REST Message (System Web Services> Outbound > REST Message in ServiceNow)
+![alt text](image-28.png)
+
+<!-->
+| Field | Value | |-------|-------| | Name | `EBOND Salesforce Case` | | Endpoint | `https://YOUR_DOMAIN.my.salesforce.com/services/data/v68.0` | | Authentication | OAuth 2.0, profile pointed at the token URL above |
+-->
+
+
+
+Step 2 — define the HTTP method (ServiceNow)
+ServiceNow — on the REST Message record, open the HTTP Methods tab and click New:
+Set Authentication Type to OAuth 2.0
+![alt text](image-29.png)
+Then under OAuthProfile click Magniying glass then -->New under  This section OAuth Entity Profiles
+within this 
+https://<devURL>.service-now.com/oauth_entity_profile_list.do
+![alt text](image-30.png)
+
+Need an OAuth Provider under the OAuthProfile-->
+![alt text](image-31.png)
+
+Application Registry:
+![alt text](image-32.png)
+What kind of OAuth application: ![alt text](image-33.png)
+Connect to a third party OAuth Provider - Outbound
+<h1>Unfilled form</h1>
+![alt text](image-34.png)
+
+<h2>Form Fill Helpers</h2>
+![alt text](image-40.png)
+<h1>Filled Form</h1>
+
+![alt text](image-39.png)
+
+![alt text](image-35.png)
+
+new OAuth providers: ![alt text](image-36.png) filling in the form first part.
+<br />
+Note the related lists for OAuth Entity Profiles, OAuth Entity Scopes, OAuth Entity Resources.
+<br />
+Also we changed Default Grant Type-->Client Credentials(from Resource Owner Password Credentials).
+<br />
+OAuth Entity Profiles section of Application Registry ![alt text](image-37.png) for our (third party OAuth Provider - Outbound)
+
+<br />
+Under OAuth Entity Scopes--> add new row under OAuth Entity Scopes-->(Name/OAuth scope)
+![alt text](image-38.png)
+
+
+<!-->
+| Field | Value | |-------|-------| | Name | `patch_case` | | HTTP method | PATCH | | Endpoint | `https://YOUR_DOMAIN.my.salesforce.com/services/data/v68.0/sobjects/Case/Snow_Sys_Id__c/${snow_sys_id}` |
+Why this endpoint works: the URL uses Salesforce's external-ID update form (/sobjects/Case/{fieldName}/{fieldValue}). This works only because Snow_Sys_Id__c was marked External ID (and Unique) on the Case in Lab 2. If it were a normal field, this URL would not resolve — you would instead have to use the Case's Salesforce record Id (/sobjects/Case/{id}).
+-->
+
+Step 3 — set the request body (ServiceNow)
+ServiceNow — set the body. Do not put Snow_Sys_Id__c in the JSON — it is already in the URL as the external-ID lookup key.
+
+<!-->
+```json { "Subject": "${subject}", "Description": "${description}", "Snow_Number__c": "${number}", "Snow_Sync_Source__c": "servicenow" } ```
+Step 4 — validate the method (ServiceNow + Salesforce)
+ServiceNow — use the Test button on the HTTP method with a real sys_id from Lab 2 (the Incident's unique ID) and a real Snow_Sys_Id__c Case link.
+
+Expect HTTP 200. If you get 404, the Snow_Sys_Id__c value in the URL doesn't match a Case — double-check the Case link. If you get 401, the OAuth profile/credential is wrong.
+Salesforce — Check the Case actually changed: open that Case in Salesforce and confirm its Subject/Description reflected the test values you sent.
+
+![alt text](image-26.png)
+-->
+
+
+<h1>Integration User Creation</h1>
+<table border="1">
+<tr>
+<td>
+1. Create the user
+
+Setup → Users → New User
+Fill in details (email, username — must be unique across all Salesforce orgs, so use something like integration.user@yourdomain.example.com)
+User License: Salesforce (or Salesforce Platform if you don't need full CRM)
+Profile: System Administrator (simplest) — or a custom profile with only the permissions below
+Click Save
+2. Give API access
+
+On the user's detail page → Permission Set Licenses / Permission Set Assignments
+Assign a permission set that includes API Enabled (System Administrator profile includes it by default; if using a custom profile, edit the profile → Object Settings → System Permissions → check API Enabled)
+3. Give Case edit rights
+
+Still in the permission set / profile → Object Settings → Case
+Set Object Permissions: Read, Create, Edit (and Delete if needed)
+Field-Level Security: ensure the fields you're updating (Subject, Description, Snow_Number__c, Snow_Sync_Source__c) are Visible and Read/Write
+4. Make them the integration user for this app
+
+Back on the External Client App detail page → Policies → Permitted Users
+Choose Admin approved users are pre-authorized
+Click Manage Permission Sets (or "Assign Users") → add your new integration user
+5. Use that user in ServiceNow
+
+When you configure ServiceNow's credential record (Sections 3/4), authenticate the OAuth token call as this integration user — not your personal admin account
+Why not use your admin account? Your personal admin login could be disabled, MFA-challenged, or leave your name in every API audit trail. A dedicated integration user has a fixed password/security token, no MFA interruptions, and you can revoke it without locking yourself out of Setup.
+
+Until you get Policies editable, keep using your admin user for the lab, but create the dedicated user now so you're ready when permissions allow.
+</td>
+</tr>
+</table>
 
 ------------------------
 Not done yet. This will prove ServiceNow can call back and update the same Case by Snow_Sys_Id__c, instead of creating a second Case. No screenshots yet.
