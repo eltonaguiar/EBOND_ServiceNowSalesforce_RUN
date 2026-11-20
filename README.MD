@@ -646,8 +646,10 @@ Connect to a third party OAuth Provider - Outbound
 ...
 
 <h2>Form Fill Helpers</h2>
-![alt text](image-42.png)
-![alt text](image-44.png)
+Token URL	https://YOUR_DOMAIN.my.salesforce.com/services/oauth2/token
+Authorize URL	https://YOUR_DOMAIN.my.salesforce.com/services/oauth2/authorize
+Token Revocation URL	https://YOUR_DOMAIN.my.salesforce.com/services/oauth2/revoke
+![alt text](image-47.png)
 
 <h1>Filled Form</h1>
 
@@ -667,6 +669,27 @@ OAuth Entity Profiles section of Application Registry ![alt text](image-37.png) 
 Under OAuth Entity Scopes--> add new row under OAuth Entity Scopes-->(Name/OAuth scope)
 ![alt text](image-38.png)
 
+Create OAuth Entity Profile now that OAuth Profile was created
+![alt text](image-48.png) 
+
+OAuth Provider--> matches the name under "Application Registries" you created
+Application Registries is here
+https://<devURLhere>.service-now.com/now/nav/ui/classic/params/target/oauth_entity_list.do  
+Or System OAuth-->Application Registry (you can add created field with gear Icon and Sort Z to A to get your new entry's name from the "Name" field )
+
+Adding OAuth Entity Resource 
+http://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest 
+
+under OAuth Resources of the OAuth Entity Profile
+
+OAuth Entity Profile set  with the OAuth Resources URL 
+![alt text](image-49.png) matching the one under OAuth Entity Resources Tab of the Application Registries for our  OAuth thirdparty Salesforce EBond(in some places the lab may call it Salesforce instead) https://orgfarm-e1f47f3d5e-dev-ed.my.salesforce.com/services/data/latest
+
+the "default" provider is set with a properly set OAuth Entity Scope to "api" (again a scope part of the provider, so if you went under Application Registries, -->OAuth Entity Scopes you will see Name=api, OAuth scope=api)
+
+Back to our Rest Message Setup under 
+<strong>System Web Services >Outbound>REST Message </strong>
+![alt text](image-50.png)
 
 <!-->
 | Field | Value | |-------|-------| | Name | `patch_case` | | HTTP method | PATCH | | Endpoint | `https://YOUR_DOMAIN.my.salesforce.com/services/data/v68.0/sobjects/Case/Snow_Sys_Id__c/${snow_sys_id}` |
