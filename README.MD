@@ -643,10 +643,10 @@ Application Registry:
 What kind of OAuth application: ![alt text](image-33.png)
 Connect to a third party OAuth Provider - Outbound
 <h1>Unfilled form</h1>
-![alt text](image-34.png)
+...
 
 <h2>Form Fill Helpers</h2>
-![alt text](image-41.png)
+![alt text](image-42.png)
 
 <h1>Filled Form</h1>
 
