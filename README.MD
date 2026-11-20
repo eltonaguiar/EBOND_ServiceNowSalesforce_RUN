@@ -249,6 +249,10 @@ Steps: enable the slider. Showcases: Add Asynchronous Path on.
 Steps: as above. Showcases: async path.
 ![Async path (4)](screenshots/from-chat/071-1794891315968-prt_1e7dbfae2003pQiDTHcokJQf8c.png)
 
+
+Flow pre-config:
+![alt text](image-11.png)
+
 Steps: as above. Showcases: async path.
 ![Async path (5)](screenshots/from-chat/072-1794891315970-prt_1e7dbfae2004l2yd3wd6FjuFPS.png)
 
@@ -540,7 +544,14 @@ Setting fields on Case based on the Response received on ServiceNow i.e. what ti
 
  ![alt text](image-8.png)
 
-## Lab 3 — ServiceNow to Salesforce
+## Lab 3 — ServiceNow to Salesforce 
+Salesforce spoke not available in PDI (personal dev instances)
+![alt text](image-12.png)
+Based on that we are using more of a code approach. 
+See the lab notes for details:
+<a href="https://eltonaguiar.github.io/EBOND_ServiceNowSalesforce/labs/03-snow-to-salesforce/">Lab Notes </a>
+
+
 <details>
 <summary>Not started yet</summary>
 Process Automation-->Flow Designer-->
@@ -548,14 +559,22 @@ Workflow studio-->
 ![alt text](image-9.png)
 Same screen with "additional properties shown" ![alt text](image-10.png)
 
-Flow pre-config:
-![alt text](image-11.png)
+Setup(Gear Icon top right) ![alt text](image-14.png)-->
+External Client in Search-->External App Manager
+
+<strong>How to get there: in Salesforce, click the gear icon (Setup) at the top-right, type App Manager in the Quick Find box, then open External Client App Manager and click New.</strong>
+
+![alt text](image-13.png)
 
 
 ...
-Salesforce spoke not available in PDI (personal dev instances)
-![alt text](image-12.png)
 
+External Client App Manager starting view-->New External Client App
+![alt text](image-15.png)
+
+![alt text](image-16.png)
+Checking Enable OAuth, under API (Enable OAuth Settings). 
+Fill in External Client App Name e.g. ServiceNow Lab Integration and API Name is auto-generated but can be modified. Distribution State:Local(kept default)
 
 Not done yet. This will prove ServiceNow can call back and update the same Case by Snow_Sys_Id__c, instead of creating a second Case. No screenshots yet.
 
