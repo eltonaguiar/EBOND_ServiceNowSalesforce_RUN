@@ -747,8 +747,35 @@ This creates a **closed loop**: changes flow both ways between ServiceNow and Sa
 
 ---
 
+### Async Business Rule in Practice — Incident Table
 
-![alt text](image-9.png)
+When you update an Incident in ServiceNow that has `EBOND SF Case Id` populated, the Async business rule fires and PATCHes the corresponding Salesforce Case. Here's what that looks like:
+
+**ServiceNow Incident table — with EBOND SF Case Id populated:**
+
+| Number | Opened | Short description | Caller | Priority | State | Category | Assignment group | Assigned to | Created | Updated | Updated by | EBOND SF Case Id | Correlation ID |
+|--------|--------|-------------------|--------|----------|-------|----------|------------------|-------------|---------|---------|------------|------------------|----------------|
+| INC0010014 | 2026-11-19 21:57:14 | (empty) | 4 - Low | New | Inquiry / Help | (empty) | (empty) | 2026-11-19 21:57:14 | 2026-11-19 21:57:14 | admin | 500gL00001hypJJQAY | |
+| INC0010013 | 2026-11-19 21:43:17 | Updated from ServiceNow | (empty) | 4 - Low | New | Inquiry / Help | (empty) | (empty) | 2026-11-19 21:43:17 | 2026-11-19 21:43:17 | admin | 500gL00001hyYdRQAU | |
+
+**What's happening in each row:**
+
+| Incident | What happened | Salesforce sync |
+|----------|---------------|-----------------|
+| **INC0010013** | Short description changed to "Updated from ServiceNow" | Async rule fired → PATCHed matching Salesforce Case via `Snow_Sys_Id__c` → Case Subject updated to "Updated from ServiceNow" |
+| **INC0010014** | New Incident created (short description empty) | No Salesforce Case linked yet (`EBOND SF Case Id` empty) — no API call made |
+
+**The lifecycle in practice:**
+
+1. **Create Case in Salesforce** → ServiceNow Flow creates Incident, writes ServiceNow `sys_id` to Case's `Snow_Sys_Id__c`
+2. **Update Incident in ServiceNow** (e.g., change Short description) → Async Business Rule fires → PATCH updates Salesforce Case `Subject` field
+3. **Update Case in Salesforce** → reflects back via the ServiceNow side of the integration
+
+This closes the loop: changes made in ServiceNow propagate back to Salesforce, keeping both systems in sync.
+
+---
+
+
 
 Setup(Gear Icon top right) ![alt text](image-14.png)-->
 External Client in Search-->External App Manager
