@@ -544,7 +544,7 @@ Setting fields on Case based on the Response received on ServiceNow i.e. what ti
 
  ![alt text](image-8.png)
 <h1>ServiceNow Tickets Linked to Salesforce Case</h1>
-![alt text](image-84.png)
+Note , EBOND SF Case ID, Sync Source
 https://<dev####>.service-now.com/now/nav/ui/classic/params/target/incident_list.do 
 
 
@@ -557,8 +557,10 @@ Note the "Sync Source" and "EBond SF Case ID"
 So the Incident in ServiceNow is tagged with Salesforce Case ID and likewise
 Salesforce tickets are flagged with ServiceNow SYS ID, Incident # , and Sync Source=salesforce
 <h1>Salesforce Case Linked to ServiceNow Incident</h1>
-![alt text](image-88.png)
-Adjusted screenshot![alt text](image-86.png)
+
+<img src="eltonaguiar/EBOND_ServiceNowSalesforce_RUN/image-88.png" />
+
+Adjusted screenshot note ServiceNow Number, ServiceNow Sys Id, Sync Source![alt text](image-86.png)
 Specific Ticket:![alt text](image-87.png)
 <br />
 ![alt text](image-85.png)
