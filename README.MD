@@ -830,6 +830,9 @@ Run the OAuth flow in ServiceNow again</td></tr></table>
 
 ![alt text](image-65.png)
 
+Salesforce callback URL(must match the one described above for ServiceNow under Application Registries-->your registrered Oauth app e.g. OAuth Third party Salesforce EBond ):![alt text](image-75.png)
+![alt text](image-74.png) 
+
 <h1>Sidenote:Integration User Creation</h1>
 In this Lab we skipped Integration User Creation for brevity, to get a proof of concept of integration working , just using our current (admin) dev instance user. In a real scenario, integration user would've been configured as follows..
 <table border="1">
@@ -862,6 +865,7 @@ When you configure ServiceNow's credential record (Sections 3/4), authenticate t
 Why not use your admin account? Your personal admin login could be disabled, MFA-challenged, or leave your name in every API audit trail. A dedicated integration user has a fixed password/security token, no MFA interruptions, and you can revoke it without locking yourself out of Setup.
 
 Until you get Policies editable, keep using your admin user for the lab, but create the dedicated user now so you're ready when permissions allow.
+
 </td>
 </tr>
 </table>
