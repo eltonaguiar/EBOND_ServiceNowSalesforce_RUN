@@ -810,6 +810,9 @@ defaults on Authentication Tab: ![alt text](image-57.png)
 ![alt text](image-55.png)
 
 <h1>Patch_case HTTP Method PATCH: Fixed Screenshot</h1>
+![alt text](image-78.png)
+
+
 Needed to add Content-Type: application/json (2 fields to populate )
 Endpoint URL:https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow
 ![alt text](image-77.png)
