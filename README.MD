@@ -746,9 +746,92 @@ Salesforce — Check the Case actually changed: open that Case in Salesforce and
 
 ![alt text](image-26.png)
 -->
+Use "Test" button to validate
+![alt text](image-58.png)
+
+Received User is not authenticated, could not retrieve a new access token with the refresh token. Invalid null response.
+![alt text](image-59.png)
+
+Fix --> setup Authentication type = OAuth 2.0 and select the OAuth profile you created earlier..Click Update 
+also Endpoint
+was incorrectly set as 
+https://orgfarm-e1f47f3d5e-dev-ed.<strong>develop</strong>.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/${snow_sys_id}
+It shouldve been without the develop
+<strong>https://orgfarm-e1f47f3d5e-dev-ed.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/${snow_sys_id}</strong>
+
+![ ](image-60.png)
+![alt text](image-61.png)
 
 
-<h1>Integration User Creation</h1>
+got token via "Get OAuth Token" under
+https://<devURL>.service-now.com/now/nav/ui/classic/params/target/sys_rest_message_fn.do  .... 
+![alt text](image-62.png)
+
+successfully ran "Test"
+![alt text](image-63.png)
+
+so order is Get OAUth Token--> then "Test" 
+![alt text](image-64.png)
+
+
+<h1>Lessons Learned</h1>
+
+- Ensure whatever Domain used throughout
+https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest
+matches your Domain under Setup -->Domains
+![alt text](image-66.png) 
+i.e. Current My Domain URL. I had removed ".develop" from the URL in multiple places and it didnt work.
+
+Various spots where URLs need to be checked
+ServiceNow (System Web Services-->Outbound-->REST  Message): => your REST Message you created in the lab, then for each HTTP Method.. the Endpoint 
+![alt text](image-68.png)
+![alt text](image-67.png)
+
+Then under OAuth Provider, various URLs such as 
+ Authorization URL,
+ Token URL, 
+ Token Revocation URL,
+ Redirect URL (must match the call back URL in salesforce)
+![alt text](image-69.png)
+
+Salesforce:
+Settings==>Manage External Client Apps=>ServiceNow Lab Integration
+
+Check OAuth policies -->All users can self-authorize..
+![alt text](image-70.png)
+
+Sample URL for validation:
+https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9dAEux2v1sLsC2MVVaMuV.R7JiFeuSa.u7jtKrzRJxtw3iWA31xk4vubLkLBnfJCx8PzRifpASIHux9bd&redirect_uri=https://dev296154.service-now.com/oauth_redirect.do&scope=api
+(if your domain is wrong you would get a page not found error.) 
+
+For debugging I also added some scopes(not sure if required would have to further validate):
+![ (refresh_token,offline_access)](image-71.png)
+
+Flow enablement:![alt text](image-72.png)
+<br />
+<strong>Important</strong><br />
+![alt text](image-73.png)  if you set it to something aside from "All users can self-authorize" otherwise..
+
+<table border="1">
+<tr><td>Fix in Salesforce Connected App
+Go to: Setup → App Manager → [Your Connected App] → Edit
+
+Look for OAuth policies → Permitted Users. Change it from:
+
+"Admin approved users are pre-authorized" → "All users may self-authorize"
+Save.
+
+If you want to keep it as "Admin approved," then a Salesforce admin must explicitly grant your user access to this Connected App (Setup → Profiles → [Profile] → Connected App Access → add your app).
+
+Then retry
+Update Permitted Users to "All users may self-authorize" in Salesforce Connected App
+Save
+Run the OAuth flow in ServiceNow again</td></tr></table>
+
+![alt text](image-65.png)
+
+<h1>Sidenote:Integration User Creation</h1>
+In this Lab we skipped Integration User Creation for brevity, to get a proof of concept of integration working , just using our current (admin) dev instance user. In a real scenario, integration user would've been configured as follows..
 <table border="1">
 <tr>
 <td>
