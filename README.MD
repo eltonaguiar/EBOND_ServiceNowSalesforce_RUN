@@ -691,6 +691,26 @@ Back to our Rest Message Setup under
 <strong>System Web Services >Outbound>REST Message </strong>
 ![alt text](image-50.png)
 
+Specify the OAuth Profile (I had 2 need to click to select then then use (preview this record , "information" aka i Icon,  and inspect to see which is complete, one was missing OAuth Entity Scope, so the one with a filled in OAuth Entity Scope ="api" was selected)
+![alt text](image-52.png)
+![alt text](image-51.png)
+filled, Authentication tab, so moving on to HTTP Request
+![alt text](image-53.png)
+
+Left HTTP headers empty then submit
+![alt text](image-54.png) 
+
+go back to your newly created REST Message and go to HTTP Methods,
+added HTTP Methods for patch_case
+defaults on Authentication Tab: ![alt text](image-57.png)
+
+![alt text](image-56.png)
+![alt text](image-55.png)
+<table border="1">
+Why this endpoint works: the URL uses Salesforce's external-ID update form (/sobjects/Case/{fieldName}/{fieldValue}). This works only because Snow_Sys_Id__c was marked External ID (and Unique) on the Case in Lab 2. If it were a normal field, this URL would not resolve — you would instead have to use the Case's Salesforce record Id (/sobjects/Case/{id}).
+</table>
+
+
 <!-->
 | Field | Value | |-------|-------| | Name | `patch_case` | | HTTP method | PATCH | | Endpoint | `https://YOUR_DOMAIN.my.salesforce.com/services/data/v68.0/sobjects/Case/Snow_Sys_Id__c/${snow_sys_id}` |
 Why this endpoint works: the URL uses Salesforce's external-ID update form (/sobjects/Case/{fieldName}/{fieldValue}). This works only because Snow_Sys_Id__c was marked External ID (and Unique) on the Case in Lab 2. If it were a normal field, this URL would not resolve — you would instead have to use the Case's Salesforce record Id (/sobjects/Case/{id}).
