@@ -646,19 +646,108 @@ URL: `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/
 ```
 Same URL: `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow`
 
+### HTTP Headers required
+
+Both approaches require the **Content-Type** header on the HTTP method:
+
+| Header Name | Value | Why |
+|-------------|-------|-----|
+| `Content-Type` | `application/json` | Tells Salesforce the request body is JSON; without this, Salesforce returns `400 INVALID_CONTENT_TYPE` |
+
+---
+
+### Two ways to structure the PATCH call
+
+**Approach 1: All fields in the body (works)**
+
+The request body contains all fields to update. The URL contains the External ID value:
+```json
+{
+  "Subject": "${subject}",
+  "Description": "${description}",
+  "Snow_Number__c": "${number}",
+  "Snow_Sync_Source__c": "servicenow"
+}
+```
+URL: `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow`
+
+**Approach 2: Only changed fields in the body (also works)**
+
+```json
+{
+  "Subject": "Updated from ServiceNow"
+}
+```
+Same URL: `https://orgfarm-e1f47f3d5e-dev-ed.develop.my.salesforce.com/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow`
+
 **Key insight:** Both work. The URL path `/sobjects/Case/Snow_Sys_Id__c/{value}` tells Salesforce which Case to update via the External ID match. The request body contains whatever fields you want to change. Required header: `Content-Type: application/json`.
 
 ---
 
+
+---
+## 5. Async business rule — Why and how it auto-updates Salesforce
+
+### Why use an Async business rule?
+
+When a Case is created in Salesforce, Lab 2 creates a matching Incident in ServiceNow and links them via `Snow_Sys_Id__c`. But the reverse—updating Salesforce when an Incident changes in ServiceNow—needs automation. An **Async Business Rule** runs after the Incident record is saved, so it can:
+
+1. **Detect when an Incident is created or updated** in ServiceNow
+2. **Check if that Incident has a linked Salesforce Case** (via `Snow_Sys_Id__c`)
+3. **Push the updated fields back to Salesforce** via the Scripted REST API we tested above
+
+Without this automation, changes made in ServiceNow would never flow back to Salesforce. The two systems would drift out of sync.
+
+### What the Async business rule does
+
+Every time an Incident is inserted or updated in ServiceNow, the Async business rule fires and:
+
+1. **Reads the Incident** — gets its `sys_id`, `number`, `short_description`, `priority`, `state`, etc.
+2. **Checks for a link** — looks at the link between Incident and Salesforce Case
+3. **If linked → calls the Salesforce REST API** (PATCH) via the `patch_case_test` REST Message
+4. **Updates Salesforce** — pushes the changed fields back to the matching Case
+
+### How Incident ↔ Case linking works
+
+| Direction | Trigger | What happens |
+|-----------|---------|--------------|
+| Salesforce → ServiceNow | Create Case in Salesforce | Lab 2 Flow creates Incident in ServiceNow, writes ServiceNow `sys_id` to `Snow_Sys_Id__c` on Case |
+| ServiceNow → Salesforce | Update Incident in ServiceNow | Async Business Rule fires, PATCHes Salesforce Case via `Snow_Sys_Id__c` |
+
+This creates a **closed loop**: changes flow both ways between ServiceNow and Salesforce.
+
+---
+
+### How we tested the HTTP Methods
+
+| Method | Endpoint | Test Result | How we tested |
+|--------|----------|-------------|---------------|
+| **GET** | `/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow` | ✅ 200 OK | Opened URL in browser while logged into Salesforce — confirmed it returns Case JSON |
+| **PATCH** | `/services/data/latest/sobjects/Case/Snow_Sys_Id__c/servicenow` | ✅ 201 Created | Ran `patch_case_test` REST Message in ServiceNow with `Content-Type: application/json` header — confirmed Case updated in Salesforce |
+| **POST** | `/services/data/latest/sobjects/Case/` | ✅ 201 Created | Tested via SmartRecruiters API — created new Case record |
+
+### Putting the Async business rule into practice
+
+1. **Create the Async Business Rule** in ServiceNow:
+   - Table: `incident`
+   - Filter: `u_snow_sys_id IS NOT empty` (only process linked incidents)
+   - When: `after insert` and `after update`
+   - Action: Call `patch_case_test` REST Message via `new sn_ws.RESTMessageV2('patch_case_test', 'PATCH')`
+
+2. **Map fields to send** — map Incident fields to Salesforce Case fields:
+   - `short_description` → `Subject`
+   - `description` → `Description`
+   - `number` → `Snow_Number__c`
+   - `priority` → `Priority`
+
+3. **Test end-to-end:**
+   - Create a Case in Salesforce → verify Incident created in ServiceNow with `Snow_Sys_Id__c` populated
+   - Update the Incident in ServiceNow → verify the Case updates in Salesforce
+   - Update the Case in Salesforce → verify the Incident updates in ServiceNow
+
 ---
 
 
----
-
-
-
-Process Automation-->Flow Designer-->
-Workflow studio-->
 ![alt text](image-9.png)
 
 Setup(Gear Icon top right) ![alt text](image-14.png)-->
