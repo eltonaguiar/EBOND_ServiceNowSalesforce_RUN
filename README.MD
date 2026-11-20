@@ -557,8 +557,12 @@ Note the "Sync Source" and "EBond SF Case ID"
 So the Incident in ServiceNow is tagged with Salesforce Case ID and likewise
 Salesforce tickets are flagged with ServiceNow SYS ID, Incident # , and Sync Source=salesforce
 <h1>Salesforce Case Linked to ServiceNow Incident</h1>
+Adjusted screenshot![alt text](image-86.png)
+Specific Ticket:![alt text](image-87.png)
+<br />
 ![alt text](image-85.png)
 ![alt text](image-83.png)
+
 
 ![alt text](image-81.png)
 ## Lab 3 — ServiceNow to Salesforce 
