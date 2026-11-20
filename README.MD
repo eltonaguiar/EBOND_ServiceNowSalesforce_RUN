@@ -544,8 +544,13 @@ Setting fields on Case based on the Response received on ServiceNow i.e. what ti
 
  ![alt text](image-8.png)
 <h1>ServiceNow Tickets Linked to Salesforce Case</h1>
+![alt text](image-84.png)
+https://<dev####>.service-now.com/now/nav/ui/classic/params/target/incident_list.do 
+
+
 ServiceNow incidents Created Based on Salesforce ticket Creation
 ![alt text](image-80.png)
+
 
 Note the "Sync Source" and "EBond SF Case ID"
 ![alt text](image-82.png)
