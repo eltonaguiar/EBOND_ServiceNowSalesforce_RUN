@@ -1150,8 +1150,8 @@ System Web Services => Outbound => REST Message & its -->Related HTTP Methods Li
 ![alt text](image-97.png)
 
 <h2>Actions tab:</h2>
-![alt text](image-99.png)
-
+![alt text](image-101.png)
+![alt text](image-102.png)
 <h2>Advanced tab:</h2>
 ![alt text](image-100.png)
 Calling our other Rest Mesage we made for patch_case (per the 2nd parameter)
