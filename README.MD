@@ -1243,25 +1243,35 @@ Those parameters are configured in our Async Business rule
     if (!current.u_ebond_sf_case_id) {
         return;
     }
-    var r = new sn_ws.RESTMessageV2('EBOND Salesforce Case', 'patch_case_test');
+    var r = new sn_ws.RESTMessageV2('EBOND Salesforce Case', 'patch_case_test');<br />
     <strong>
     r.setStringParameterNoEscape('snow_sys_id', current.getUniqueValue());
+    <br />
     r.setStringParameterNoEscape('subject', current.getValue('short_description') || '');
+    <br />
     r.setStringParameterNoEscape('description', current.getValue('description') || '');
+    <br />
     r.setStringParameterNoEscape('number', current.getValue('number') || '');
+    <br />
     </strong>
     r.setHttpTimeout(20000);
+    <br />
     var resp = r.execute();
+    <br />
     if (resp.getStatusCode() < 200 || resp.getStatusCode() >= 300) {
+      <br />
         gs.error('EBOND patch failed ' + resp.getStatusCode());
+        <br />
     }
+    <br />
 })(current, previous);
+<br />
 
 </td>
 </tr>
 </table>
-
-T
+<br />
+<br />
 
 
 
