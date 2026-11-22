@@ -1220,9 +1220,13 @@ https://orgfarm-e1f47f3d5e-dev-ed.develop.lightning.force.com/500gL00001hCRWDQA4
 
 ![alt text](image-106.png)
 
-So, in conclusion, the current setup is.
+So, in conclusion, the current setup is...
 Salesforce > Case creation, creates Incident in ServiceNow, with the associated Case/ Incident ID reflected in Salesforce/ServiceNow.
 <br /> 
+
+Note the Sync Source for that Incident # we changed  is now ServiceNow.
+![alt text](image-107.png)
+<br />
 In ServiceNow, updating an Incident linked to a case, will update the fields, where specified.
 <table border="1">
 <tr>
@@ -1314,7 +1318,7 @@ Until you get Policies editable, keep using your admin user for the lab, but cre
 </table>
 
 ------------------------
-Not done yet. This will prove ServiceNow can call back and update the same Case by Snow_Sys_Id__c, instead of creating a second Case. No screenshots yet.
+
 
 
 
@@ -1322,17 +1326,10 @@ Not done yet. This will prove ServiceNow can call back and update the same Case 
 
 
 ## Lab 4 — Ownership and loops
-<details>
-
-
-
-
-<summary>Not started yet</summary>
 -------------------------------------
-
 Not done yet. This will show which system owns which field, and that one save does not bounce. No screenshots yet.
 
-</details>
+
 
 ## Lab 5 — ServiceNow ITOM & Platform Operations
 
