@@ -1136,6 +1136,59 @@ Run the OAuth flow in ServiceNow again</td></tr></table>
 Salesforce callback URL(must match the one described above for ServiceNow under Application Registries-->your registrered Oauth app e.g. OAuth Third party Salesforce EBond ):![alt text](image-75.png)
 ![alt text](image-74.png) 
 
+
+...
+Coming up... Async Business Rule setup =>ServiceNow
+When to run tab:
+![alt text](image-94.png) 
+
+Actions tab:
+![alt text](image-95.png)
+
+Advanced tab:
+![alt text](image-96.png)
+Calling our other Rest Mesage we made for patch_case (per the 2nd parameter)
+
+Note the RestMessageV2 first parameter
+Matches the Name under our Rest Messages we created
+Under System Web Services => Outbound => REST Message
+<br />
+![alt text](image-92.png)
+<br />
+Our Rest Message
+![alt text](image-91.png)
+So 2nd parameter of RESTMessaageV2, must match within our 
+<strong>
+System Web Services => Outbound => REST Message ==>related HTTP Methods List-->Name-->patch_case_test
+</strong>
+
+![alt text](image-93.png)
+
+
+below name should be patch_case_test in my case for our Async business rule code. (whichever REST method actually was tested in earlier phase,)
+<table border="1">
+<tr><td>
+(function executeRule(current, previous) {
+    if (!current.u_ebond_sf_case_id) {
+        return;
+    }
+    var r = new sn_ws.RESTMessageV2('EBOND Salesforce Case', 'patch_case');
+    r.setStringParameterNoEscape('snow_sys_id', current.getUniqueValue());
+    r.setStringParameterNoEscape('subject', current.getValue('short_description') || '');
+    r.setStringParameterNoEscape('description', current.getValue('description') || '');
+    r.setStringParameterNoEscape('number', current.getValue('number') || '');
+    r.setHttpTimeout(20000);
+    var resp = r.execute();
+    if (resp.getStatusCode() < 200 || resp.getStatusCode() >= 300) {
+        gs.error('EBOND patch failed ' + resp.getStatusCode());
+    }
+})(current, previous);
+
+</td></tr>
+</table>
+
+
+
 <h1>Sidenote:Integration User Creation</h1>
 In this Lab we skipped Integration User Creation for brevity, to get a proof of concept of integration working , just using our current (admin) dev instance user. In a real scenario, integration user would've been configured as follows..
 <table border="1">
