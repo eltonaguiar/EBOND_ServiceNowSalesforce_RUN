@@ -1138,14 +1138,21 @@ Salesforce callback URL(must match the one described above for ServiceNow under 
 
 
 ...
-Coming up... Async Business Rule setup =>ServiceNow
-When to run tab:
-![alt text](image-94.png) 
+<h1>Async Business Rule setup =>ServiceNow</h1>
+<br  />
+Name: EBond Salesforce Indident Async.
+So basically for items with an EBond SF Case ID(not empty), it will , on update of an incident matching that... run our RestMessageV2 case, which runs the "patch_case_test" method as per the Rest Message under 
+System Web Services => Outbound => REST Message & its -->Related HTTP Methods List-->Name of patch_case_test.
+<br />
 
-Actions tab:
+<h2>When to run tab:</h2>
+![alt text](image-94.png) 
+![alt text](image-97.png)
+
+<h2>Actions tab:</h2>
 ![alt text](image-95.png)
 
-Advanced tab:
+<h2>Advanced tab:</h2>
 ![alt text](image-96.png)
 Calling our other Rest Mesage we made for patch_case (per the 2nd parameter)
 
