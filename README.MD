@@ -1150,7 +1150,7 @@ System Web Services => Outbound => REST Message & its -->Related HTTP Methods Li
 ![alt text](image-97.png)
 
 <h2>Actions tab:</h2>
-![alt text](image-101.png)
+
 ![alt text](image-102.png)
 <h2>Advanced tab:</h2>
 ![alt text](image-100.png)
@@ -1193,6 +1193,76 @@ below name should be patch_case_test in my case for our Async business rule code
 
 </td></tr>
 </table>
+
+
+<h1>Final Validation of the Async Business Rule</h1>
+So when, an incident linked to a Salesforce Case is updated in ServiceNow, the associated Salesforce Case is updated (for the fields we linked)
+
+<h2>Screenshot#1: Our INC # , note the new short description with "testing1234"
+
+![alt text](image-104.png)
+
+
+
+<h2>Since the form doesnt have the Salesforce ID shown in our view, to quickly check we pull incidents view and check that particular ticket # in a report.. retreiving that Salesforce Case ID </h2>
+
+![alt text](image-105.png)
+
+<h2> Then we are able to retrieve that via ID in Salesforce </h2>
+In Salesforce, just take your base URL
+e.g. 
+https://orgfarm-e1f47f3d5e-dev-ed.develop.lightning.force.com/IDGOESHERE
+and put the ID, and salesforce will jump to that Salesforce Sys ID.
+
+so
+https://orgfarm-e1f47f3d5e-dev-ed.develop.lightning.force.com/500gL00001hCRWDQA4
+
+
+![alt text](image-106.png)
+
+So, in conclusion, the current setup is.
+Salesforce > Case creation, creates Incident in ServiceNow, with the associated Case/ Incident ID reflected in Salesforce/ServiceNow.
+<br /> 
+In ServiceNow, updating an Incident linked to a case, will update the fields, where specified.
+<table border="1">
+<tr>
+<td>
+{
+  "Subject": "${subject}",
+  "Description": "${description}",
+  "Snow_Number__c": "${number}",
+  "Snow_Sync_Source__c": "servicenow"
+}
+<td>
+<tr>
+<td>
+Those parameters are configured in our Async Business rule
+<br />
+<br />
+(function executeRule(current, previous) {
+    if (!current.u_ebond_sf_case_id) {
+        return;
+    }
+    var r = new sn_ws.RESTMessageV2('EBOND Salesforce Case', 'patch_case_test');
+    <strong>
+    r.setStringParameterNoEscape('snow_sys_id', current.getUniqueValue());
+    r.setStringParameterNoEscape('subject', current.getValue('short_description') || '');
+    r.setStringParameterNoEscape('description', current.getValue('description') || '');
+    r.setStringParameterNoEscape('number', current.getValue('number') || '');
+    </strong>
+    r.setHttpTimeout(20000);
+    var resp = r.execute();
+    if (resp.getStatusCode() < 200 || resp.getStatusCode() >= 300) {
+        gs.error('EBOND patch failed ' + resp.getStatusCode());
+    }
+})(current, previous);
+
+</td>
+</tr>
+</table>
+
+T
+
 
 
 
